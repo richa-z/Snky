@@ -7,7 +7,3 @@ def delete(file):
         print(e)
         return False
     return True
-    
-
-
-    

