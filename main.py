@@ -228,5 +228,5 @@ async def on_message(message):
             return
         embed = discord.Embed(title="Unblock Input", description="Input unblocked.", color=0x00ff00)
         await message.channel.send(embed=embed)
-client.run("MTE2OTU4MDgwOTQxNDUyOTA2NQ.G-rRef.fnbeuU_NqaBHxyb2Qsr4P1NLilaH9LMkD72mEw")
+client.run("TOKEN HERE")
 
