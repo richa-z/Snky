@@ -16,6 +16,7 @@ Current commands:
 - **.open** - - Open a specified file. Usage: ```.open <full file path>```. Example: ```.open c:/Users/user/Desktop/textfile.txt```
 - **.copy** - Copy a specified file. Usage: ```.copy <full file path>```. Example: ```.copy c:/Users/user/Desktop/textfile.txt```
 - **.bsod** - Trigger a BSOD.
+- **.changepassword** - Change the user's password. Usage: ```.changepassword <new password>```
 - **.webcam** - Take a picture using the webcamera.
 - **.logout** - Logout the user from the computer.
 - **.delete** - Delete a specified file. Usage: ```.delete <full file path>```. Example: ```.delete c:/Users/user/Desktop/textfile.txt```

