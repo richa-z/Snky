@@ -13,6 +13,7 @@ Current commands:
 - **.tasklist** - List all tasks with a specific name. Usage: ```.tasklist <program name>```. Example: ```.tasklist opera.exe```
 - **.taskkill** - Kill a specified task. Usage: ```.taskkill <PID>```
 - **.screenshot** - Take a screenshot.
+- **.open** - - Open a specified file. Usage: ```.open <full file path>```. Example: ```.open c:/Users/user/Desktop/textfile.txt```
 - **.copy** - Copy a specified file. Usage: ```.copy <full file path>```. Example: ```.copy c:/Users/user/Desktop/textfile.txt```
 - **.bsod** - Trigger a BSOD.
 - **.webcam** - Take a picture using the webcamera.
