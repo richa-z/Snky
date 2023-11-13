@@ -19,11 +19,12 @@ Current commands:
 - **.logout** - Logout the user from the computer.
 - **.delete** - Delete a specified file. Usage: ```.delete <full file path>```. Example: ```.delete c:/Users/user/Desktop/textfile.txt```
 - **.upload** - Upload a file to the computer. Usage: ```.upload <full file path>```. You need to use the file that you want to upload as message attachment. Example: ```.upload c:/Users/user/Desktop/textfile.txt```
+- **.hid** - Siumlates keyboard. Usage: ```.hid write <text>``` - writes text, ```.hid press <key>``` - simulates keypress, ```.hid hotkey <key1> <key2>``` - simulates keypresses of key1 and key2 at the same time.
+            Examples: ```.hid write hello there``` - writes "hello there", ```.hid press enter``` - simulates keypress of enter key, ```.hid hotkey win r``` - simulates hotkey win + r.
 - **.blockinput** - Block all input from the user's keyboard and mouse.
 - **.unblockinput** - Unblock all input from the user's keyboard and mouse.
 - **.selfdestruct** - Run a .bat file that removes the bot and all it's features from the computer.
 - **.deletedir** - Delete a directory. Usage: ```.deletedir <full dir path>```. Example: ```.deletedir c:/Users/user/Desktop/MyFolder``` BROKEN
 - **.createdir** - Create a directory. Usage: ```.createdir <new dir path>```. Example ```.createdir c:/Users/user/Desktop/MyNewFolder```
 - **.modules** - List/run modules in the ```/modules``` folder. Usage: ```.modules <list/load>``` BROKEN
-
 This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself.
