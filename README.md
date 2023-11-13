@@ -21,8 +21,8 @@ Current commands:
 - **.blockinput** - Block all input from the user's keyboard and mouse.
 - **.unblockinput** - Unblock all input from the user's keyboard and mouse.
 - **.selfdestruct** - Run a .bat file that removes the bot and all it's features from the computer.
-- **.deletedir** - Delete a directory. Usage: ```.deletedir <full dir path>```. Example: ```.deletedir c:/Users/user/Desktop/MyFolder```
+- **.deletedir** - Delete a directory. Usage: ```.deletedir <full dir path>```. Example: ```.deletedir c:/Users/user/Desktop/MyFolder``` BROKEN
 - **.createdir** - Create a directory. Usage: ```.createdir <new dir path>```. Example ```.createdir c:/Users/user/Desktop/MyNewFolder```
-- **.modules** - List/run modules in the ```/modules``` folder. Usage: ```.modules <list/load>```
+- **.modules** - List/run modules in the ```/modules``` folder. Usage: ```.modules <list/load>``` BROKEN
 
 This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself.
