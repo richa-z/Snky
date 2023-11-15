@@ -28,5 +28,5 @@ Current commands:
 - **.selfdestruct** - Run a .bat file that removes the bot and all it's features from the computer.
 - **.deletedir** - Delete a directory. Usage: ```.deletedir <full dir path>```. Example: ```.deletedir c:/Users/user/Desktop/MyFolder``` BROKEN
 - **.createdir** - Create a directory. Usage: ```.createdir <new dir path>```. Example ```.createdir c:/Users/user/Desktop/MyNewFolder```
-- **.modules** - List/run modules in the ```/modules``` folder. Usage: ```.modules <list/load>``` BROKEN
-# This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself.
+- **.modules** - List/run modules in the ```/modules``` folder. Usage: ```.modules <list/load>```
+# This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself. The module should be encrypted in Base64 and then decrypted + executed. For reference see ```example_module.py``` in ```/modules```
