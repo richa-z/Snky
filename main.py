@@ -19,7 +19,15 @@ client = discord.Client(intents=discord.Intents.all())
 def load_modules():
     for module in os.listdir(modules_path):
         if module.endswith(".py"):
-            os.popen(f"py {modules_path}/{module}")
+            print(f"py {modules_path}\{module}")
+            os.system(f"py {modules_path}\{module}")
+
+def list_modules():
+    modules = ""
+    for module in os.listdir(modules_path):
+        if module.endswith(".py"):
+            modules += module + "\n"
+    return modules
 
 @client.event
 async def on_ready():
@@ -325,9 +333,19 @@ async def on_message(message):
 
     #RUN MODULES
     if message.content.startswith(".modules"):
-        arg = message.content.replace(".modules ", "")
-        if arg == "load":
-            await message.delete()
+        try:
+            arg = message.content.split(" ")[1]
+        except:
+            embed = discord.Embed(title="Modules", description="No argument given.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            return
+        await message.delete()
+        
+        if arg == "list":
+            embed = discord.Embed(title="Modules", description=list_modules(), color=0x00ff00)
+            await message.channel.send(embed=embed)
+
+        elif arg == "load":
             try:
                 load_modules()
             except Exception as e:
@@ -335,19 +353,13 @@ async def on_message(message):
                 embed = discord.Embed(title="Modules", description="Failed to load modules.", color=0x00ff00)
                 await message.channel.send(embed=embed)
                 return
+
             embed = discord.Embed(title="Modules", description="Modules loaded.", color=0x00ff00)
             await message.channel.send(embed=embed)
-        if arg == "list":
-            await message.delete()
-            modules = ""
-            for module in os.listdir(modules_path):
-                modules += f"{module}\n"
-            embed = discord.Embed(title="Modules", description=modules, color=0x00ff00)
-            await message.channel.send(embed=embed)
         else:
-            await message.delete()
             embed = discord.Embed(title="Modules", description="Invalid argument.", color=0x00ff00)
             await message.channel.send(embed=embed)
+            return
 
     #PERSISTENCE
     if message.content.startswith(".boot"):
