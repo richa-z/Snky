@@ -1,8 +1,5 @@
-import base64
-
 """
-To encode a python script to base64, just use a site for it. There's plenty of them. Example: https://gchq.github.io/CyberChef/
-After that, just paste the encoded script into the line below.
+Create a .py file and name it however you want (without spaces). Add some code here and save it. Afterwards you can load the module(s) using .modules load all OR .modules load file_name.py
 """
 
-exec(base64.b64decode("PASTE THE BASE64 ENCODED SCRIPT HERE"))
+
