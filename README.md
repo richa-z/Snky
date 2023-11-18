@@ -10,7 +10,7 @@ Current commands:
 - **.hardware** - Fetch information about the computer's hardware using WMIC. [GPU/CPU Name, HWID, RAM Capacity, Disk Capacity]
 - **.shutdown** - Shutdown the computer.
 - **.dir** - List the specified directory's files. Usage: ```.dir <full path>```
-- **.tasklist** - List all tasks with a specific name. Usage: ```.tasklist <program name>```. Example: ```.tasklist opera.exe```
+- **.tasklist** - List all tasks currently running on the host computer. Usage: ```.tasklist```
 - **.taskkill** - Kill a specified task. Usage: ```.taskkill <PID>```
 - **.screenshot** - Take a screenshot.
 - **.open** - - Open a specified file. Usage: ```.open <full file path>```. Example: ```.open c:/Users/user/Desktop/textfile.txt```
