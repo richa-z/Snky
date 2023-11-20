@@ -32,3 +32,14 @@ Current commands:
 - **.clipboard** - Get/set the current clipboard item. Usage: ```.clipboard <get/set> <if you used ".clipboard set" parse the text to put into clipboard here>``` Note: ```.clipboard get``` returns the CURRENT copied text, not the whole history.
 
 This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself. For reference see ```example_module.py``` in ```/modules```
+
+##Instalation - User
+Create a new discord bot application at https://discord.com/developers/applications.
+
+Copy the token.
+
+Add the bot to a server where you'll use him.
+
+
+##Instalation - Host
+[Currently working on .BAT Installation.
