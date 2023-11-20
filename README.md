@@ -33,7 +33,7 @@ Current commands:
 
 This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself. For reference see ```example_module.py``` in ```/modules```
 
-##Instalation - User
+## Instalation - User
 Create a new discord bot application at https://discord.com/developers/applications.
 
 Copy the token.
@@ -41,5 +41,5 @@ Copy the token.
 Add the bot to a server where you'll use him.
 
 
-##Instalation - Host
+## Instalation - Host
 [Currently working on .BAT Installation.
