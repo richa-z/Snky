@@ -42,4 +42,4 @@ Add the bot to a server where you'll use him.
 
 
 ## Instalation - Host
-[Currently working on .BAT Installation.
+[Currently working on .BAT Installation.]
