@@ -2,6 +2,7 @@ pywin32-ctypes==0.2.0
 pygame==2.4.0
 pynput==1.7.6
 discord.py==2.2.2
+discord==2.2.2
 imageio==2.19.3
 PyAutoGUI==0.9.53
 winshell==0.6
