@@ -1,6 +1,4 @@
 import os
-from shutil import copy
-import shutil
 from PIL import ImageGrab
 from ctypes import windll
 from ctypes import c_int
@@ -14,8 +12,6 @@ import pygame.camera
 import pygame.image
 import time
 import pyautogui
-import numpy as np
-import imageio
 import pynput
 import discord
 import os
@@ -132,4 +128,3 @@ def get_clipboard():
 
 def set_clipboard(text):
   pyperclip.copy(text)
-  
