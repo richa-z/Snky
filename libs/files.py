@@ -1,5 +1,4 @@
-import os
-from cryptography.fernet import Fernet
+import os, argon2
 
 def delete(file):
     try:
@@ -25,42 +24,15 @@ def create_dir(dir):
         return False
     return True
 
-def encrypt_file(file, key):
+def encryptFile(file, key):
     try:
-        with open(file, "rb") as f:
-            data = f.read()
-        with open(file, "wb") as f:
-            f.write(encrypt(data, key))
+        f = open(file, 'rb')
+        data = f.read()
+        f.close()
+        f = open(file, 'wb')
+        f.write(argon2.argon2_hash(data, key))
+        f.close()
     except Exception as e:
         print(e)
         return False
     return True
-
-def decrypt_file(file, key):
-    try:
-        with open(file, "rb") as f:
-            data = f.read()
-        with open(file, "wb") as f:
-            f.write(decrypt(data, key))
-    except Exception as e:
-        print(e)
-        return False
-    return True
-
-def encrypt(data, key):
-    f = Fernet(key)
-    with open(bytes(data), "rb") as F:
-        file = f.read()
-        enc_data = f.encrypt(file)
-    
-    with open(bytes(data), "wb") as F:
-        F.write(enc_data)
-
-def decrypt(data, key):
-    f = Fernet(key)
-    with open(data, "rb") as F:
-        file = f.read()
-        dec_data = f.decrypt(file)
-    
-    with open(data, "wb") as F:
-        F.write(dec_data)
