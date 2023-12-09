@@ -1,7 +1,8 @@
 # Snky - A basic Discord bot-based RAT.
 ****Project is for educational purposes only.****
 
-Written in Python and Batch.
+Written in Python, Batch and Powershell.
+Written by: [@richa-z](https://github.com/richa-z) & [@mart1n-v](https://github.com/mart1n-v)
 ## Features
 Bot is in constant development and they may be new features or changes to the old ones.
 
@@ -34,12 +35,17 @@ Current commands:
 This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself. For reference see ```example_module.py``` in ```/modules```
 
 ## Instalation - User
-Create a new discord bot application at https://discord.com/developers/applications.
+- Create a new discord bot application at https://discord.com/developers/applications.
+- Copy the token.
+- Add the bot to a server where you'll use him.
 
-Copy the token.
-
-Add the bot to a server where you'll use him.
+- GZip the token
+- Base64 encrypt the result
+- Paste into the powershell code in the ``$property_value`` variable.
 
 
 ## Instalation - Host
-[Currently working on a powershell payload.]
+The infection process is done through the use of soe powershell code. You want them to run the .ps1 file and let it finish.
+
+The powershell code will install Python 3.10.11, latest version of Snky and create a shortcut in the startup folder. Then it shuts off the computer.
+
