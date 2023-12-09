@@ -2,7 +2,7 @@
 ****Project is for educational purposes only.****
 
 Written in Python, Batch and Powershell.
-Written by: @richa-z & @mart1n-v
+Written by: [@richa-z](https://github.com/richa-z) & [@mart1n-v](https://github.com/mart1n-v)
 ## Features
 Bot is in constant development and they may be new features or changes to the old ones.
 
