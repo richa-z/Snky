@@ -49,3 +49,6 @@ The infection process is done through the use of soe powershell code. You want t
 
 The powershell code will install Python 3.10.11, latest version of Snky and create a shortcut in the startup folder. Then it shuts off the computer.
 
+## Known Bugs
+- Files that are generated with commands do not send.
+
