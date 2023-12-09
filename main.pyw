@@ -396,9 +396,6 @@ async def on_message(message):
             reg_h.store_enc_key()
             embed = discord.Embed(title="Setup", description="Encryption key stored.", color=0x00ff00)
             await message.channel.send(embed=embed)
-            reg_h.create_startup(f"{os.path.dirname(os.path.abspath(__file__))}\\main.pyw")
-            embed = discord.Embed(title="Setup", description="Startup created.", color=0x00ff00)
-            await message.channel.send(embed=embed)
         except Exception as e:
             print(e)
             embed = discord.Embed(title="Setup", description="Failed to setup.", color=0x00ff00)
