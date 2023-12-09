@@ -1,7 +1,8 @@
 # Snky - A basic Discord bot-based RAT.
 ****Project is for educational purposes only.****
 
-Written in Python and Batch.
+Written in Python, Batch and Powershell.
+Written by: @richa-z & @mart1n-v
 ## Features
 Bot is in constant development and they may be new features or changes to the old ones.
 
