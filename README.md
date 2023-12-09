@@ -39,8 +39,8 @@ This project supports custom modules. If you want to add your own script (not a 
 - Copy the token.
 - Add the bot to a server where you'll use him.
 
-- GZip the token
-- Base64 encrypt the result
+- Download enc.py and paste the token into the "TOKEN_HERE" variable
+- Copy the token (DO NOT COPY THE ``b'`` AT THE START AND THE ``'`` AT THE END.)
 - Paste into the powershell code in the ``$property_value`` variable.
 
 
