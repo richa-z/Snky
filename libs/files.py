@@ -1,12 +1,5 @@
-import os, argon2
-
-def delete(file):
-    try:
-        os.remove(file)
-    except Exception as e:
-        print(e)
-        return False
-    return True
+import os
+import argon2
 
 def delete_dir(dir):
     try:
@@ -24,13 +17,13 @@ def create_dir(dir):
         return False
     return True
 
-def encryptFile(file, key):
+def encrypt_file(file, password):
     try:
-        f = open(file, 'rb')
-        data = f.read()
+        with open(file, 'rb') as f:
+            data = f.read()
         f.close()
-        f = open(file, 'wb')
-        f.write(argon2.argon2_hash(data, key))
+        with open(file, 'wb') as f:
+            f.write(argon2.argon2_hash(data, password))
         f.close()
     except Exception as e:
         print(e)

