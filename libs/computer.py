@@ -1,4 +1,5 @@
 import os
+import libs.registry_handler as reg
 from PIL import ImageGrab
 from ctypes import windll
 from ctypes import c_int
