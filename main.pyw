@@ -424,7 +424,7 @@ async def on_message(message):
         os.remove("networking_info.txt")
 
     #MONITORS
-    if message.content.startswith(".monitor):
+    if message.content.startswith(".monitor"):
         arg = message.content.split(" ")[1]
         await message.delete()
         try:

