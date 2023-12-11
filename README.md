@@ -47,7 +47,7 @@ This project supports custom modules. If you want to add your own script (not a 
 ## Instalation - Host
 The infection process is done through the use of some powershell code. You want them to run the .ps1 file and let it finish.
 
-The powershell code will install Python 3.10.11, latest version of Snky and create a shortcut in the startup folder. Then it shuts off the computer.
+The powershell code will install Python 3.10.11, latest version of Snky and create a shortcut in the startup folder. Then it restarts the computer.
 
 ## Known Bugs
 - None at the moment.
