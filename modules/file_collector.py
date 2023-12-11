@@ -32,7 +32,7 @@ def get_files(path):
             if root == target_path_txt or root == target_path_images or root == target_path_docx:
                 continue
             for file in files:
-                if file.endswith(".txt"):
+                if file.endswith(".txt") or file.endswith(".md"):
                     txt.append(os.path.join(root, file))
                 elif file.endswith(".png") or file.endswith(".jpg") or file.endswith(".jpeg"):
                     images.append(os.path.join(root, file))
