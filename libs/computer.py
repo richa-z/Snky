@@ -126,3 +126,13 @@ def get_clipboard():
 
 def set_clipboard(text):
   pyperclip.copy(text)
+
+def off_mon():
+  for monitor in get_monitors():
+        monitor = Monitor.from_index(monitor.index)
+        monitor.set_power_mode(4)
+
+def on_mon():
+  for monitor in get_monitors():
+        monitor = Monitor.from_index(monitor.index)
+        monitor.set_power_mode(1)
