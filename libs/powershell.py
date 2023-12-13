@@ -7,7 +7,7 @@ def tasklist():
     os.popen("tasklist > tasklist.txt")
     
 def taskkill(process):
-    if os.system(f"taskkill /im {process} /f") == 0:
+    if os.popen(f"taskkill /im {process} /f") == 0:
         result = f"Process {process} killed."
         return result
     else:
