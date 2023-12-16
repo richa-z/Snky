@@ -2,7 +2,6 @@ import winreg as reg
 import base64
 import getpass
 import uuid
-import argon2
 import random
 
 loc = reg.HKEY_CURRENT_USER
