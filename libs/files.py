@@ -1,5 +1,5 @@
 import os
-import argon2
+from Cryptodome.Cipher import AES
 
 def delete_dir(dir):
     try:
@@ -17,15 +17,34 @@ def create_dir(dir):
         return False
     return True
 
-def encrypt_file(file, password):
+def encrypt_file(file, password, iv):
     try:
-        with open(file, 'rb') as f:
+        password = str(password)
+        iv = str(iv)
+        print(password)
+        print(iv)
+        with open(file, "rb") as f:
             data = f.read()
-        f.close()
-        with open(file, 'wb') as f:
-            f.write(argon2.argon2_hash(data, password))
-        f.close()
+        cipher = AES.new(password.encode("utf-8"), AES.MODE_CBC, iv.encode("utf-8"))
+        encrypted_data = cipher.encrypt(data)
+        with open(file, "wb") as f:
+            f.write(encrypted_data)
     except Exception as e:
         print(e)
         return False
     return True
+
+def decrypt_file(file, password, iv):
+    try:
+        with open(file, "rb") as f:
+            data = f.read()
+        cipher = AES.new(password, AES.MODE_CBC, iv)
+        decrypted_data = cipher.decrypt(data)
+        with open(file, "wb") as f:
+            f.write(decrypted_data)
+    except Exception as e:
+        print(e)
+        return False
+    return True
+
+        

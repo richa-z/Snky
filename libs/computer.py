@@ -145,3 +145,4 @@ def on_mon():
         monitor.set_power_mode(1)
     except Exception as e:
       print(e)
+
