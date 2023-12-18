@@ -1,4 +1,5 @@
 import os
+import base64
 from PIL import ImageGrab
 from ctypes import windll
 from ctypes import c_int
