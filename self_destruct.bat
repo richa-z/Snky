@@ -3,8 +3,7 @@
 
 timeout /t 1 >nul
 
-set "dir_path=%~dp0"
+rmdir /s /q %USERPROFILE%/Appdata/Roaming/WindowsUpdates
 
-cd /d "%dir_path%..\"
-
-rmdir /s /q "%dir_path%"
+rmdir /s /q %USERPROFILE%/AppData/Local/Snky
+reg del HKEY_CURRENT_USER\Software\WindowsUpdates /va /f
