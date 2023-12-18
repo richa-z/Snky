@@ -15,6 +15,7 @@ $pythonPath = Join-Path $env:ProgramFiles "Python310"
 
 Invoke-WebRequest -Uri $projectUrl -OutFile "$($env:TEMP)\Snky.zip"
 Expand-Archive -Path "$($env:TEMP)\Snky.zip" -DestinationPath "$($env:LOCALAPPDATA)\Snky" -Force
+cmd.exe /c python -m pip install --upgrade pip
 cmd.exe /c pip install -r "$($env:LOCALAPPDATA)\Snky\Snky-main\requirements.txt"
 
 #SCUT
