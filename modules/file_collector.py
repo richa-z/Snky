@@ -17,9 +17,15 @@ docx = []
 pdf = []
 csv = []
 
-if os.path.exists(os.getcwd + __name__ + "_config.json") == True:
-    with open(os.getcwd + __name__ + "_config.json", "r") as f:
+print(os.getcwd())
+
+if os.path.exists(f"{os.getcwd()}/modules/file_collector_config.json"):
+    with open(f"{os.getcwd()}/modules/file_collector_config.json", "r") as f:
         config = json.load(f)
+
+print(config.get("monitor_control"))
+
+print(config.get("input_blocking"))
 
 if config.get("input_blocking") == True:
     kb_listener = pynput.keyboard.Listener(suppress=True)
