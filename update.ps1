@@ -1,6 +1,6 @@
 $gitlink = "https://github.com/richa-z/Snky/archive/refs/heads/main.zip"
 
-$cfg_save = Get-Content .\cfg\config.json | Out-String | ConvertFrom-Json
+Copy-Item -Path "$($env:LOCALAPPDATA)\Snky\Snky-main\cfg\" -Destination "${env:TEMP}\cfg" -Recurse -Force
 #download full payload
 
 Invoke-WebRequest -Uri $gitlink -OutFile "$($env:TEMP)\Snky.zip"
@@ -9,4 +9,4 @@ cmd.exe /c python -m pip install --upgrade pip
 cmd.exe /c pip install -r "$($env:LOCALAPPDATA)\Snky\Snky-main\requirements.txt"
 
 #replace template cfg with saved cfg
-$cfg_save | ConvertTo-Json | Out-File "$($env:LOCALAPPDATA)\Snky\Snky-main\cfg\config.json"
+Copy-Item -Path "${env:TEMP}\cfg\" -Destination "$($env:LOCALAPPDATA)\Snky\Snky-main\cfg" -Recurse -Force

