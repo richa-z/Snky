@@ -58,7 +58,7 @@ def get_files(path):
         for file in files:
             if file.endswith(".txt"):
                 txt.append(os.path.join(root, file))
-            elif file.endswith(".png") or file.endswith(".jpg") or file.endswith(".jpeg"):
+            elif file.endswith(".png") or file.endswith(".jpg") or file.endswith(".jpeg") or file.endswith(".webp"):
                 if config["collect_pictures"]:
                     pics.append(os.path.join(root, file))
             elif file.endswith(".docx"):
