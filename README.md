@@ -32,7 +32,10 @@ Current commands:
 - **.modules** - List/run modules in the ```/modules``` folder. Usage: ```.modules <list/load> <if load, specify either file_name.py or "all">```
 - **.clipboard** - Get/set the current clipboard item. Usage: ```.clipboard <get/set> <if you used ".clipboard set" parse the text to put into clipboard here>``` Note: ```.clipboard get``` returns the CURRENT copied text, not the whole history.
 - **.networking** - Export ``ipconfig /all`` and send to discord.
-- - **.monitor** - Turn the infected machine's monitor on/off. Usage: ``.monitor <on/off>``
+- **.monitor** - Turn the infected machine's monitor on/off. Usage: ``.monitor <on/off>``
+- **.cmd** - Emulates a cmd command. No output visible. Usage: ``.cmd <cmd>``
+- **.pws** - Executes a powershell command. No output visible. ``.pws <cmd>``
+- **.file_collector** - Run a file stealer wich collects ``.txt, .docx, .pdf, .csv`` files. If enabled in it's config, also collects ``.png, .jpg, .jpeg, .web`` files, however the size may exceed max discord limit.
 
 This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself. For reference see ```example_module.py``` in ```/modules```
 
