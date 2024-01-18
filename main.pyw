@@ -17,7 +17,7 @@ client = discord.Client(intents=discord.Intents.all())
 file_version = "2.0"
 
 #load config
-with open(f"cfg/config.json", "r") as f:
+with open(f"{os.getcwd()}/cfg/config.json", "r") as f:
         config = json.load(f)
 
 def load_modules():
