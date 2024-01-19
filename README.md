@@ -14,14 +14,14 @@ Current commands:
 - **.tasklist** - List all tasks currently running on the host computer. Usage: ```.tasklist```
 - **.taskkill** - Kill a specified task. Usage: ```.taskkill <PID>```
 - **.screenshot** - Take a screenshot.
-- **.open** - - Open a specified file. Usage: ```.open <full file path>```. Example: ```.open c:/Users/user/Desktop/textfile.txt```
+- **.open** - - Open a file on the host computer. Usage: ```.open <full file path>```. Example: ```.open c:/Users/user/Desktop/textfile.txt```
 - **.copy** - Copy a specified file. Usage: ```.copy <full file path>```. Example: ```.copy c:/Users/user/Desktop/textfile.txt```
 - **.bsod** - Trigger a BSOD.
 - **.changepassword** - Change the user's password. Usage: ```.changepassword <new password>```
 - **.webcam** - Take a picture using the webcamera.
 - **.logout** - Logout the user from the computer.
-- **.delete** - Delete a specified file. Usage: ```.delete <full file path>```. Example: ```.delete c:/Users/user/Desktop/textfile.txt```
-- **.upload** - Upload a file to the computer. Usage: ```.upload <full file path>```. You need to use the file that you want to upload as message attachment. Example: ```.upload c:/Users/user/Desktop/textfile.txt```
+- **.delete** - Delete a specified file. Usage: ```.delete <file path>```. Example: ```.delete c:/Users/user/Desktop/textfile.txt```
+- **.upload** - Upload a file to the computer. Usage: ```.upload <file path>```. You need to upload the file as message attachment. Example: ```.upload c:/Users/user/Desktop/textfile.txt```
 - **.hid** - Siumlates keyboard. Usage: ```.hid write <text>``` - writes text, ```.hid press <key>``` - simulates keypress, ```.hid hotkey <key1> <key2>``` - simulates keypresses of key1 and key2 at the same time.
             Examples: ```.hid write hello there``` - writes "hello there", ```.hid press enter``` - simulates keypress of enter key, ```.hid hotkey win r``` - simulates hotkey win + r.
 - **.blockinput** - Block all input from the user's keyboard and mouse.
@@ -32,7 +32,7 @@ Current commands:
 - **.modules** - List/run modules in the ```/modules``` folder. Usage: ```.modules <list/load> <if load, specify either file_name.py or "all">```
 - **.clipboard** - Get/set the current clipboard item. Usage: ```.clipboard <get/set> <if you used ".clipboard set" parse the text to put into clipboard here>``` Note: ```.clipboard get``` returns the CURRENT copied text, not the whole history.
 - **.networking** - Export ``ipconfig /all`` and send to discord.
-- **.monitor** - Turn the infected machine's monitor on/off. Usage: ``.monitor <on/off>``
+- **.monitor** - Turn the host machine's monitor on/off. Usage: ``.monitor <on/off>``
 - **.cmd** - Emulates a cmd command. No output visible. Usage: ``.cmd <cmd>``
 - **.pws** - Executes a powershell command. No output visible. ``.pws <cmd>``
 - **.file_collector** - Run a file stealer wich collects ``.txt, .docx, .pdf, .csv`` files. If enabled in it's config, also collects ``.png, .jpg, .jpeg, .web`` files, however the size may exceed max discord limit.
@@ -57,5 +57,5 @@ The infection process is done through the use of some powershell code. You want 
 The powershell code will install Python 3.10.11, latest version of Snky and create a shortcut in the startup folder. Then it restarts the computer.
 
 ## Known Bugs
-- None at the moment.
+- File collector crashes bot.
 
