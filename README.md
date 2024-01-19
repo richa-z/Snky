@@ -1,4 +1,4 @@
-# Snky - A basic Discord bot-based RAT.
+9# Snky - A basic Discord bot-based RAT.
 ****Project is for educational purposes only.****
 
 Written in Python, Batch and Powershell.
@@ -57,5 +57,8 @@ The infection process is done through the use of some powershell code. You want 
 The powershell code will install Python 3.10.11, latest version of Snky and create a shortcut in the startup folder. Then it restarts the computer.
 
 ## Known Bugs
-- File collector crashes bot. [FIX TO BE TESTED]
+- None
 
+## AVs that detect Snky
+
+- MS Defender ❌️ - Last detection: 19.1.
