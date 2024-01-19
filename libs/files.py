@@ -17,4 +17,11 @@ def create_dir(dir):
         return False
     return True
 
+def delete_file(file):
+    try:
+        os.remove(file)
+    except Exception as e:
+        print(e)
+        return False
+    return True
         

