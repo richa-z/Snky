@@ -37,7 +37,7 @@ Current commands:
 - **.pws** - Executes a powershell command. No output visible. ``.pws <cmd>``
 - **.file_collector** - Run a file stealer wich collects ``.txt, .docx, .pdf, .csv`` files. If enabled in it's config, also collects ``.png, .jpg, .jpeg, .web`` files, however the size may exceed max discord limit.
 - **.token_grab** - Run a discord token grabber.
-- **.bwrowser_grab** - Run a browser stealer. Collects cookies, password, data, history and download history.
+- **.browser_grab** - Run a browser stealer. Collects cookies, password, data, history and download history.
 
 This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself. For reference see ```example_module.py``` in ```/modules```
 
