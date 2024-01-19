@@ -17,10 +17,8 @@ docx = []
 pdf = []
 csv = []
 
-print(os.getcwd())
-
-if os.path.exists(f"{os.getcwd()}/cfg/file_collector_config.json"):
-    with open(f"{os.getcwd()}/cfg/file_collector_config.json", "r") as f:
+if os.path.exists(f"{os.getenv('LOCALAPPDATA')}/Snky/Snky-main/cfg/file_collector_config.json"):
+    with open(f"{os.getenv('LOCALAPPDATA')}/Snky/Snky-main/cfg/file_collector_config.json", "r") as f:
         config = json.load(f)
 
 if config.get("input_blocking") == True:
