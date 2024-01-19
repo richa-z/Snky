@@ -57,5 +57,5 @@ The infection process is done through the use of some powershell code. You want 
 The powershell code will install Python 3.10.11, latest version of Snky and create a shortcut in the startup folder. Then it restarts the computer.
 
 ## Known Bugs
-- File collector crashes bot.
+- File collector crashes bot. [FIX TO BE TESTED]
 
