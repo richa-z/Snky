@@ -1,4 +1,4 @@
-9# Snky - A basic Discord bot-based RAT.
+# Snky - A basic Discord bot-based RAT.
 ****Project is for educational purposes only.****
 
 Written in Python, Batch and Powershell.
