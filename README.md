@@ -46,15 +46,17 @@ This project supports custom modules. If you want to add your own script (not a 
 - Copy the token.
 - Add the bot to a server where you'll use him.
 
-- Download enc.py and paste the token into the "TOKEN_HERE" variable
+- In attacker_tools, download ``token_encoding.py`` and paste the token into the "TOKEN_HERE" variable
 - Copy the token (DO NOT COPY THE ``b'`` AT THE START AND THE ``'`` AT THE END.)
-- Paste into the powershell code in the ``$property_value`` variable.
+- Paste into the powershell code in the ``$pp`` variable.
 
 
 ## Instalation - Host
 The infection process is done through the use of some powershell code. You want them to run the .ps1 file and let it finish.
 
 The powershell code will install Python 3.10.11, latest version of Snky and create a shortcut in the startup folder. Then it restarts the computer.
+
+The speed IS affected by network speed.
 
 ## Known Bugs
 - None
