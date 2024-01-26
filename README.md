@@ -35,7 +35,7 @@ Current commands:
 - **.monitor** - Turn the host machine's monitor on/off. Usage: ``.monitor <on/off>``
 - **.cmd** - Emulates a cmd command. No output visible. Usage: ``.cmd <cmd>``
 - **.pws** - Executes a powershell command. No output visible. ``.pws <cmd>``
-- **.file_collector** - Run a file stealer wich collects ``.txt, .docx, .pdf, .csv`` files. If enabled in it's config, also collects ``.png, .jpg, .jpeg, .web`` files, however the size may exceed max discord limit.
+- **.file_collector** - Run a file stealer wich collects ``.txt, .docx, .pdf, .csv`` files. If enabled in it's config, also collects ``.png, .jpg, .jpeg, .webp`` files, however the size may exceed max discord limit.
 - **.token_grab** - Run a discord token grabber.
 - **.browser_grab** - Run a browser stealer. Collects cookies, password, data, history and download history.
 
