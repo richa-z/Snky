@@ -62,7 +62,7 @@ This project has custom module support! You can create your own module and then 
 You can also create configs for your modules (load and use them IN YOUR MODULE). Upload them using ``.upload C:/users/user/AppData/Local/WindowsUpdatesManager/Snky-main/cfg``
 
 ## Known Bugs
-- None
+- Commands with an output file are broken.
 
 ## AVs that detect Snky (THAT I TESTED)
 
