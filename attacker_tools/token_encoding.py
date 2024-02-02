@@ -7,3 +7,4 @@ token = "TOKEN_HERE"
 token_gzip = gzip.compress(token.encode("utf-8"))
 token_base64 = base64.b64encode(token_gzip)
 print(token_base64)
+input("Pres any key to exit.")

