@@ -216,6 +216,9 @@ async def on_message(message):
             return
         embed = discord.Embed(title="Tasklist", description="Tasklist fetched.", color=0x00ff00)
         await message.channel.send(embed=embed)
+        
+        while(os.path.exists(f"{main_path}/tasklist.txt") == False):
+            time.sleep(1)
         await message.channel.send(file=discord.File(f"{main_path}/tasklist.txt"))
         os.remove(f"{main_path}/tasklist.txt")
 
