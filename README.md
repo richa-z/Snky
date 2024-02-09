@@ -1,10 +1,12 @@
-# Snky - A basic Discord bot-based RAT.
+# Snky - A basic Python RAT.
 ****Project is for educational purposes only.****
+
+Snky is a basic Python RAT controlled purely using a discord bot. It runs on startup without a console window. 
 
 Written in Python, Batch and Powershell.
 Written by: [@richa-z](https://github.com/richa-z) & [@mart1n-v](https://github.com/mart1n-v)
 ## Features
-Bot is in constant development and they may be new features or changes to the old ones.
+This project is in constant development.
 
 Current commands:
 - **.pcinfo** - Fetch information about the computer using the ```systeminfo``` command in command prompt.
@@ -62,7 +64,7 @@ This project has custom module support! You can create your own module and then 
 You can also create configs for your modules (load and use them IN YOUR MODULE). Upload them using ``.upload C:/users/user/AppData/Local/WindowsUpdatesManager/Snky-main/cfg``
 
 ## Known Bugs
-- Commands with an output file are broken.
+- None known
 
 ## AVs that detect Snky (THAT I TESTED)
 
