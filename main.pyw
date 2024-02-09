@@ -462,7 +462,12 @@ async def on_message(message):
         #run cmd and send feedback from cmd
         await message.delete()
         try:
-            subprocess.call(arg, shell=True)
+            if arg != "notepad" or arg != "edit" or arg != "start cmd.exe":
+                    subprocess.call(arg + f"> {main_path}/output.txt", shell=True)
+        else:
+                embed = discord.Embed(title="CMD", description="Command did not execute. Make sure your command does not open a different window! (Does not apply to ``call``)", color=0x00ff00)
+                await message.channel.send(embed=embed)
+                break
             embed = discord.Embed(title="CMD", description="Command executed.", color=0x00ff00)
             await message.channel.send(embed=embed)
         except Exception as e:
